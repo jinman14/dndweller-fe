@@ -5,6 +5,7 @@ import '../LandingPage/LandingPage'
 import '../FormView/FormView'
 import '../SheetView/SheetView'
 import '../CharacterVault/CharacterVault'
+import '../ResourcesPage/ResourcesPage'
 import '../NotFound/NotFound'
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
         <Route path="/form" element={<FormView />} />
         <Route path="/sheet" element={<SheetView />} /> 
         <Route path="/vault" element={<CharacterVault />} />
+        <Route path="/resources" element={<ResourcesPage />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </main>

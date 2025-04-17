@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { Router as Router, Routes, Route} from 'router-react-dom'
+import { reactRouter as Router, Routes, Route } from 'router-react-dom'
 import './App.css'
 
 function App() {

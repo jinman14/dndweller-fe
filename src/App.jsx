@@ -5,8 +5,18 @@ import './App.css'
 function App() {
 
   return (
-    <>
-    </>
+    <Router>
+      <Header />
+      <Routes>
+        <LandingPage />
+        <Route>
+          <FormView />
+        </Route>
+        <Route>
+          <CharacterVault />
+        </Route>
+      </Routes>
+    </Router>
   )
 }
 

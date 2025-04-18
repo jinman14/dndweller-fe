@@ -1,6 +1,7 @@
 .header {
     display: flex;
     justify-content: space-between;
+    text-align: center;
     align-items: center;
     padding: 1rem 2rem;
     background-color: #282c34;
@@ -8,12 +9,14 @@
 }
 
 .title {
-    font-size: 1.8rem;
+    font-size: 2rem;
+    margin-bottom: 1rem
 }
 
 .nav-bard {
     display: flex;
-    gap: 1rem;
+    justify-content: center;
+    gap: 1.5rem;
 }
 
 .nav-link {

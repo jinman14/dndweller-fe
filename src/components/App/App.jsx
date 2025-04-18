@@ -1,4 +1,4 @@
-import { reactRouter as Routes, Route } from 'router-react-dom'
+import { reactRouter as Routes, Route } from 'react-router-dom'
 import './App.css'
 import '../Header/Header'
 import '../LandingPage/LandingPage'

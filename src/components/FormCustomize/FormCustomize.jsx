@@ -8,10 +8,23 @@ function FormCustomize() {
         <section>
 
             <div className='form-selection'>{/* Token */}
-                <TokenGallery />
+                <TokenGallery onSelect={setSelectedToken} />
             </div> 
 
+            {selectedToken && (
+                <div>
+                    <h3>Token Selected!</h3>
+                    <p>{selectedToken.race} {selectedToken.class}</p>
+                    <div className="token-card confirmed-token">
+                    <img src={selectedToken.url} alt="preview" style={{ width: '100px' }} />
+                    </div>
+                </div>
+            )}
+
             <div className='form-selection'></div> {/* Gender */}
+
+
+            
             <div className='form-selection'></div> {/* Skills */}
             <div className='form-selection'></div> {/* Spells */}
             <div className='form-selection'></div> {/* Name */}

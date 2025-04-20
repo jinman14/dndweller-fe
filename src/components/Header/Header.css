@@ -1,9 +1,9 @@
 .header {
     display: flex;
-    justify-content: space-between;
-    text-align: center;
+    flex-direction: column;
+    width: 100%;
     align-items: center;
-    padding: 1rem 2rem;
+    padding: 2rem 1rem;
     background-color: #282c34;
     color: white;
 }
@@ -15,8 +15,9 @@
 
 .nav-bard {
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
-    gap: 1.5rem;
+    gap: 2rem;
 }
 
 .nav-link {

@@ -13,7 +13,7 @@ const RaceClassView = () => {
     return (
         <div className="raceclass-container">
             <h2>Choose A Class:</h2>
-                <div className="class-buttons">
+                <div className="button-grid">
                     {classes.map((cls) => (
                         <button 
                         key = {cls}
@@ -25,7 +25,7 @@ const RaceClassView = () => {
                     ))}
                 </div>
             <h2>Choose A Race:</h2>
-                <div className="race-buttons">
+                <div className="button-grid">
                     {races.map((race) => (
                         <button 
                         key = {race}

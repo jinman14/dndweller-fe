@@ -1,0 +1,49 @@
+.raceclass-container {
+    padding: 2rem;
+    text-align: center;
+}
+
+.button-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.option-button {
+    padding: 0.75rem 1.5rem;
+    border: 2px solid #444;
+    background-color: #eee;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.2s ease;
+}
+
+.option-button:hover {
+    background-color: #ddd;
+}
+
+.option-button.selected {
+    background-color: #61dafb;
+    border-color: #21a1f1;
+    color: black;
+}
+
+.form-link {
+    display: block;
+    max-width: 250px;
+    margin: 0 auto;
+    padding: 0.75rem 1.5rem;
+    background-color: #61dafb;
+    text-decoration: none;
+    text-align: center;
+    font-weight: bold;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.form-link:hover {
+    background-color: #21a1f1;
+}

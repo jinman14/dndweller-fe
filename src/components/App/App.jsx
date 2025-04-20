@@ -2,6 +2,7 @@ import { Routes, Route } from 'react-router-dom';
 import './App.css';
 import Header from '../Header/Header';
 import LandingPage from '../LandingPage/LandingPage';
+import RaceClassView from '../RaceClassView/RaceClassView';
 import FormView from '../FormView/FormView';
 // import SheetView from '../SheetView/SheetView';
 // import CharacterVault from '../CharacterVault/CharacterVault';
@@ -14,6 +15,7 @@ function App() {
       <Header />
       <Routes>
         <Route path="/" element={<LandingPage />} />
+        <Route path="/raceclass" element={<RaceClassView />} />
         <Route path="/form" element={<FormView />} />
       </Routes>
     </main>

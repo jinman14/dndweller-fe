@@ -16,9 +16,12 @@ function TokenGallery( {onSelect} ) {
 	return (
 		<section>
             <h2>Hero, what is your path?</h2>
-            <p>Choose your token, gender, weapon, armor, skills, and spells.</p>
-			
-            {!confirmToken && <p>Tokens available: {tokens.length}</p>}
+            {!confirmToken && (
+                <>
+                    <p>Choose your token, gender, weapon, armor, skills, and spells.</p>
+                    <p>Tokens available: {tokens.length}</p>
+                </>
+            )}
 
             {!confirmToken && (
                 <div className="token-grid">

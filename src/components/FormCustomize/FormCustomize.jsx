@@ -1,8 +1,10 @@
 import { useState } from "react";
 import TokenGallery from '../TokenGallery/TokenGallery';
+import GenderSelect from "../GenderSelection/GenderSelection";
 
 function FormCustomize() {
     const [selectedToken, setSelectedToken] = useState(null)
+    const [selctedGender, setSelectedGender] = useState(null)
 
     return (
         <section>
@@ -12,6 +14,7 @@ function FormCustomize() {
             </div> 
 
             {selectedToken && (
+                <>
                 <div>
                     <h3>Token Selected!</h3>
                     <p>{selectedToken.race} {selectedToken.class}</p>
@@ -19,12 +22,14 @@ function FormCustomize() {
                     <img src={selectedToken.url} alt="preview" style={{ width: '100px' }} />
                     </div>
                 </div>
+                </>
             )}
 
             <div className='form-selection'></div> {/* Gender */}
+                {selectedToken && (
+                    <GenderSelect onSelectGender={setSelectedGender} />
+                )}
 
-
-            
             <div className='form-selection'></div> {/* Skills */}
             <div className='form-selection'></div> {/* Spells */}
             <div className='form-selection'></div> {/* Name */}

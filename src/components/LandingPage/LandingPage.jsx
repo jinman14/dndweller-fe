@@ -9,7 +9,7 @@ const LandingPage = () => {
             <p className="about-text">
                 Click the button below to start creating a character!
             </p>
-            <Link to="/form" className="form-link">
+            <Link to="/raceclass" className="raceclass-link">
                 Create Your Dungeon Dweller
             </Link>
         </div>

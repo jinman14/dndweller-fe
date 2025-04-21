@@ -1,8 +1,11 @@
-import { useState } from "react"
+import React, { useState } from "react"
+import { Link, useLocation } from 'react-router-dom'
+import './FormView.css'
 
 function FormView() {
-    const [selectedClass, setSelectedClass] = useState('')
-
+    const location = useLocation()
+    const { selectedRace, selectedClass } = location.state || {};
+  
     return (
         <section className='form-container'>  
             <div className='form-selection'>

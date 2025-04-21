@@ -13,7 +13,7 @@
     font-size: 1.2rem;
 }
 
-.form-link {
+.raceclass-link {
     display: block;
     max-width: 250px;
     margin: 0 auto;
@@ -26,6 +26,6 @@
     transition: background-color 0.3s ease;
 }
 
-.form-link:hover {
+.raceclass-link:hover {
     background-color: #21a1f1;
 }

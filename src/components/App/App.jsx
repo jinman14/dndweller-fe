@@ -4,8 +4,8 @@ import Header from '../Header/Header';
 import LandingPage from '../LandingPage/LandingPage';
 import RaceClassView from '../RaceClassView/RaceClassView';
 import FormView from '../FormView/FormView';
+import FormCustomize from '../FormCustomize/FormCustomize'
 import SheetView from '../SheetView/SheetView';
-import FormCustomize from '../FormCustomize/FormCustomize';
 import CharacterVault from '../CharacterVault/CharacterVault';
 import ResourcesPage from'../ResourcesPage/ResourcesPage';
 import NotFound from '../NotFound/NotFound';

@@ -25,6 +25,12 @@ function FormCustomize() {
     const [selectedLevel2Spells, setSelectedLevel2Spells] = useState([])
     const [availableLevel2Spells, setAvailableLevel2Spells] = useState([])
     const [confirmedLevel2Spells, setConfirmedLevel2Spells] =useState(false)
+    const [availableWeapons, setAvailableWeapons] = useState([])
+    const [availableArmor, setAvailableArmor] = useState([])
+    const [selectedWeapon, setSelectedWeapon] = useState(null)
+    const [confirmedWeapon, setConfirmedWeapon] = useState(false)
+    const [selectedArmor, setSelectedArmor] = useState(null)
+    const [confirmedArmor, setConfirmedArmor] = useState(false)
 
     
 
@@ -81,6 +87,24 @@ function FormCustomize() {
         })
     }, [selectedToken])
 
+    useEffect(() => {
+        if (!selectedToken) return
+
+        fetch('/weapons_n_armor.json')
+        .then((response) => response.json())
+        .then((data) => {
+            const filteredWeapons = data.weapons.filter((weapon) => {
+                return weapon.recommendedFor.includes(selectedToken.class)
+            })
+            const filteredArmor = data.armor.filter((armor) => {
+                return armor.recommendedFor.includes(selectedToken.class)
+            })
+            setAvailableWeapons(filteredWeapons)
+            setAvailableArmor(filteredArmor)
+        })
+    }, [selectedToken])
+
+
     return (
         <section>
             <div className='form-selection'>{/* Token */}
@@ -100,6 +124,117 @@ function FormCustomize() {
             {selectedToken && (
                 <div className='form-selection'>{/* Gender */}
                     <GenderSelection onSelectGender={setSelectedGender} />
+                </div>
+            )}
+
+            {confirmedWeapon && (
+                <div className="confirmed-gear">
+                    <p><strong>Weapon:</strong> {selectedWeapon}</p>
+                </div>
+            )}
+
+            {confirmedArmor && (
+                <div className="confirmed-gear">
+                    <p><strong>Armor:</strong> {selectedArmor}</p>
+                </div>
+            )}
+
+            {confirmedCantrips && (
+            <div className="confirmed-summary">
+                <h4>Cantrips Chosen:</h4>
+                <ul>
+                {selectedCantrips.map(cantrip => (
+                    <li key={cantrip}>{cantrip}</li>
+                ))}
+                </ul>
+            </div>
+            )}
+
+            {confirmedLevel1Spells && (
+            <div className="confirmed-summary">
+                <h4>Level 1 Spells:</h4>
+                <ul>
+                {selectedLevel1Spells.map(spell => (
+                    <li key={spell}>{spell}</li>
+                ))}
+                </ul>
+            </div>
+            )}
+
+            {confirmedLevel2Spells && (
+            <div className="confirmed-summary">
+                <h4>Level 2 Spells:</h4>
+                <ul>
+                {selectedLevel2Spells.map(spell => (
+                    <li key={spell}>{spell}</li>
+                ))}
+                </ul>
+            </div>
+            )}  
+
+
+            {selectedGender && !confirmedWeapon && (
+            <div className='form-selection'>{/* Weapons */}
+                <h3>Select Your Weapon</h3>
+                {availableWeapons.map(weapon => {
+                const isSelected = selectedWeapon === weapon.name
+
+                return (
+                    <div key={weapon.name} className={`weapon-card ${isSelected ? 'selected' : ''}`}>
+                    <h4>{weapon.name}</h4>
+                    <p><strong>Range:</strong> {weapon.range}</p>
+                    <p>{weapon.description}</p>
+                    <button onClick={() => {
+                        if (isSelected) {
+                        setSelectedWeapon(null)
+                        } else {
+                        setSelectedWeapon(weapon.name)
+                        }
+                    }}>
+                        {isSelected ? 'Unselect' : 'Select'}
+                    </button>
+                    </div>
+                )
+                })}
+                <button
+                className="confirm-button"
+                onClick={() => setConfirmedWeapon(true)}
+                disabled={!selectedWeapon}
+                >
+                Confirm Weapon
+                </button>
+            </div>
+            )}
+
+            {confirmedWeapon && !confirmedArmor && (
+                <div className='form-selection'>{/* Armor */}
+                    <h3>Select Your Armor</h3>
+                    {availableArmor.map(armor => {
+                    const isSelected = selectedArmor === armor.name
+
+                    return (
+                        <div key={armor.name} className={`armor-card ${isSelected ? 'selected' : ''}`}>
+                        <h4>{armor.name}</h4>
+                        <p>{armor.description}</p>
+                        <button onClick={() => {
+                            if (isSelected) {
+                            setSelectedArmor(null)
+                            } else {
+                            setSelectedArmor(armor.name)
+                            }
+                        }}>
+                            {isSelected ? 'Unselect' : 'Select'}
+                        </button>
+                        </div>
+                    )
+                    })}
+                    <button
+                    className="confirm-button"
+                    onClick={() => setConfirmedArmor(true)}
+                    disabled={!selectedArmor}
+                    >
+                    Confirm Armor
+                    </button>
                 </div>
             )}
 

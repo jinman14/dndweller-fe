@@ -1,0 +1,32 @@
+.header {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+    padding: 2rem 1rem;
+    background-color: #282c34;
+    color: white;
+}
+
+.title {
+    font-size: 2rem;
+    margin-bottom: 1rem
+}
+
+.nav-bard {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2rem;
+}
+
+.nav-link {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.nav-link:hover,
+.nav-link.active {
+    color: #61dafb;
+}

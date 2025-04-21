@@ -1,19 +1,13 @@
-import { Routes, Route } from 'react-router-dom';
-import './App.css';
-import Header from '../Header/Header';
-import LandingPage from '../LandingPage/LandingPage';
-import FormView from '../FormView/FormView';
-import FormCustomize from '../FormCustomize/FormCustomize';
-import SheetView from '../SheetView/SheetView';
-import CharacterVault from '../CharacterVault/CharacterVault';
-import NotFound from '../NotFound/NotFound';
+import { reactRouter as Routes, Route } from 'router-react-dom'
+import './App.css'
+import '../Header/Header'
+import '../LandingPage/LandingPage'
+import '../FormView/FormView'
+import '../SheetView/SheetView'
+import '../CharacterVault/CharacterVault'
+import '../NotFound/NotFound'
 
 function App() {
-  // Header will always be visible, and hold a NavLink button for LandingPage and CharacterVault
-  // FormView will hold state and pass props to SheetView
-  // SheetView will probably be the only component that needs fetch calls to an API
-  // FormView or SheetView will save characters to the backend
-  // CharacterVault will make GET requests to the backend
   return (
     <main>
       <Header />

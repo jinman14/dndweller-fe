@@ -1,0 +1,32 @@
+[
+    {
+      "name": "Strength",
+      "description": "Physical power and carrying capacity.",
+      "recommendedFor": ["Barbarian", "Fighter", "Paladin"]
+    },
+    {
+      "name": "Dexterity",
+      "description": "Agility, reflexes, and balance.",
+      "recommendedFor": ["Rogue", "Ranger", "Monk"]
+    },
+    {
+      "name": "Constitution",
+      "description": "Endurance and health.",
+      "recommendedFor": ["Barbarian", "Fighter", "All"]
+    },
+    {
+      "name": "Intelligence",
+      "description": "Book smarts and reasoning.",
+      "recommendedFor": ["Wizard", "Artificer"]
+    },
+    {
+      "name": "Wisdom",
+      "description": "Perception and insight.",
+      "recommendedFor": ["Cleric", "Druid", "Ranger"]
+    },
+    {
+      "name": "Charisma",
+      "description": "Charm and social influence.",
+      "recommendedFor": ["Bard", "Warlock", "Sorcerer", "Paladin"]
+    }
+  ]

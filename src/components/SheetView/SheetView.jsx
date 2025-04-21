@@ -4,6 +4,7 @@ const SheetView = () => {
   const char = {
     character_name: "Jarisemosha",
     level: 3,
+    Hp: 20,
     race: "Human",
     class: "Bard",
     gender: "male",
@@ -53,6 +54,7 @@ const SheetView = () => {
 
       <section className="core-info">
         <p><strong>AC:</strong> {char.armor_class}</p>
+        <p><strong>HP:</strong> {char.Hp}</p>
         <p><strong>Speed:</strong> {char.speed} ft</p>
         <p><strong>Proficiency:</strong> +{char.proficiency}</p>
         <p><strong>Languages:</strong> {char.languages.join(', ')}</p>

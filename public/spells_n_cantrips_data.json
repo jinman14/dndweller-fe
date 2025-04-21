@@ -201,15 +201,6 @@
             "castingTime": "1 action",
             "duration": "Concentration, up to 1 hour",
             "recommendedFor": ["Cleric", "Bard"]
-        },
-        {
-            "name": "Mirror Image",
-            "description": "Three illusory duplicates of yourself appear in your space.",
-            "level": 2,
-            "range": "Self",
-            "castingTime": "1 action",
-            "duration": "1 minute",
-            "recommendedFor": ["Wizard"]
         }
     ]
 }

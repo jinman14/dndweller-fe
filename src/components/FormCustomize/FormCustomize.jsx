@@ -17,11 +17,14 @@ function FormCustomize() {
     const MAX_POINTS_PER_SKILL = 3;
     const [confirmedSkill, setConfirmedSkill] = useState(false)
     const [availableCantrips, setAvailableCantrips] = useState([])
-    const [availableSpells, setAvailableSpells] = useState([])
     const [selectedCantrips, setSelectedCantrips] = useState([])
-    const [selectedSpells, setSelectedSpells] = useState([])
     const [confirmedCantrips, setConfirmedCantrips] = useState(false);
-    const [confirmedSpells, setConfirmedSpells] =useState(false)
+    const [selectedLevel1Spells, setSelectedLevel1Spells] = useState([])
+    const [availableLevel1Spells, setAvailableLevel1Spells] = useState([])
+    const [confirmedLevel1Spells, setConfirmedLevel1Spells] =useState(false)
+    const [selectedLevel2Spells, setSelectedLevel2Spells] = useState([])
+    const [availableLevel2Spells, setAvailableLevel2Spells] = useState([])
+    const [confirmedLevel2Spells, setConfirmedLevel2Spells] =useState(false)
 
     
 
@@ -59,12 +62,22 @@ function FormCustomize() {
         fetch('/spells_n_cantrips_data.json')
         .then((response) => response.json())
         .then((data) => {
-            console.log("Selected class:", selectedToken.class)
-            console.log("Available cantrips before filter:", data.cantrips)
+            // console.log("Selected class:", selectedToken.class)
+            // console.log("Available cantrips before filter:", data.cantrips)
             const filterCantrips = data.cantrips.filter((cantrip) => {
                 return cantrip.recommendedFor.includes(selectedToken.class)
             })
+            const filterLevel1Spells = data.spells_level_1.filter((level1) => {
+                return level1.recommendedFor.includes(selectedToken.class)
+            })
+            const filterLevel2Spells = data.spells_level_2.filter((level2) => {
+                return level2.recommendedFor.includes(selectedToken.class)
+            })
+            // console.log("Level 1 Spells:", filterLevel1Spells)
+            // console.log("Level 2 Spells:", filterLevel2Spells)
             setAvailableCantrips(filterCantrips)
+            setAvailableLevel1Spells(filterLevel1Spells)
+            setAvailableLevel2Spells(filterLevel2Spells)
         })
     }, [selectedToken])
 
@@ -220,7 +233,7 @@ function FormCustomize() {
                                     {isSelected ? 'Unselect' : 'Select'}
                                 </button>
                             </div>
-                        );
+                        )
                     })}
                     <p>Cantrips Selected: {selectedCantrips.length} / 3</p>
                     <button
@@ -233,9 +246,87 @@ function FormCustomize() {
                 </div>
             )}
 
-            <div className='form-selection'></div> {/* Spells */}
-            <div className='form-selection'></div> {/* Name */}
-            <div className='form-selection submit-button'></div> {/* Submit */}
+
+            
+            {confirmedCantrips && !confirmedLevel1Spells && (
+                <div className='form-selection'> {/* Spells */}
+                    <h3>Select Your Level 1 Spells, Hero</h3>
+                        {availableLevel1Spells.map((spells_level_1) => {
+                            const isSelected = selectedLevel1Spells.includes(spells_level_1.name)
+
+                            return (
+                            <div key={spells_level_1.name} className={`spells_level_1-card ${isSelected ? 'selected' : ''}`}>
+                                <h4>{spells_level_1.name}</h4>
+                                <p><strong>Range:</strong> {spells_level_1.range}</p>
+                                <p><strong>Casting Time:</strong> {spells_level_1.castingTime}</p>
+                                <p>{spells_level_1.description}</p>
+
+                                <button onClick={() => {
+                                    if (isSelected) {
+                                    setSelectedLevel1Spells(previousState => previousState.filter(name => name !== spells_level_1.name));
+                                    } else if (selectedLevel1Spells.length < 4) {
+                                    setSelectedLevel1Spells(previousState => [...previousState, spells_level_1.name])
+                                    }
+                                }}>
+                                    {isSelected ? 'Unselect' : 'Select'}
+                                </button>
+                            </div>
+                        )
+                    })}
+                    <p>Level 1 Spells Selected: {selectedLevel1Spells.length} / 4</p>
+                    <button
+                        className="confirm-button"
+                        onClick={() => setConfirmedLevel1Spells(true)}
+                        disabled={selectedLevel1Spells.length !== 4}>
+                        
+                        Confirm Level 1 Spells
+                    </button>
+                </div>
+            )}
+
+            {confirmedCantrips && !confirmedLevel2Spells && (
+                <div className='form-selection'> {/* Spells */}
+                    <h3>Select Your Level 2 Spells, Hero</h3>
+                        {availableLevel2Spells.map((spells_level_2) => {
+                            const isSelected = selectedLevel2Spells.includes(spells_level_2.name)
+
+                            return (
+                            <div key={spells_level_2.name} className={`spells_level_2-card ${isSelected ? 'selected' : ''}`}>
+                                <h4>{spells_level_2.name}</h4>
+                                <p><strong>Range:</strong> {spells_level_2.range}</p>
+                                <p><strong>Casting Time:</strong> {spells_level_2.castingTime}</p>
+                                <p>{spells_level_2.description}</p>
+
+                                <button onClick={() => {
+                                    if (isSelected) {
+                                    setSelectedLevel2Spells(previousState => previousState.filter(name => name !== spells_level_2.name));
+                                    } else if (selectedLevel2Spells.length < 2) {
+                                    setSelectedLevel2Spells(previousState => [...previousState, spells_level_2.name])
+                                    }
+                                }}>
+                                    {isSelected ? 'Unselect' : 'Select'}
+                                </button>
+                            </div>
+                        )
+                    })}
+                    <p>Level 2 Spells Selected: {selectedLevel2Spells.length} / 2</p>
+                    <button
+                        className="confirm-button"
+                        onClick={() => setConfirmedLevel2Spells(true)}
+                        disabled={selectedLevel2Spells.length !== 2}>
+                        
+                        Confirm Level 2 Spells
+                    </button>
+                </div>
+            )}
+
+
+            <div className='form-selection'> {/* Name */}
+                {/* Add content for Name selection here */}
+            </div>
+            <div className='form-selection submit-button'> {/* Submit */}
+                {/* Add content for Submit button here */}
+            </div>
         </section>
     )
 }

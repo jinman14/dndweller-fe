@@ -5,9 +5,10 @@ import LandingPage from '../LandingPage/LandingPage';
 import RaceClassView from '../RaceClassView/RaceClassView';
 import FormView from '../FormView/FormView';
 import SheetView from '../SheetView/SheetView';
-// import CharacterVault from '../CharacterVault/CharacterVault';
-// import ResourcesPage from'../ResourcesPage/ResourcesPage';
-// import NotFound from '../NotFound/NotFound';
+import FormCustomize from '../FormCustomize/FormCustomize';
+import CharacterVault from '../CharacterVault/CharacterVault';
+import ResourcesPage from'../ResourcesPage/ResourcesPage';
+import NotFound from '../NotFound/NotFound';
 
 function App() {
   return (

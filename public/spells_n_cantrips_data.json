@@ -1,0 +1,215 @@
+{
+    "cantrips": [
+        {
+            "name": "Vicious Mockery",
+            "description": "You unleash a string of insults laced with subtle enchantments at a creature you can see within range.",
+            "level": 0,
+            "range": "60 feet",
+            "castingTime": "1 action",
+            "duration": "Instantaneous",
+            "recommendedFor": ["Bard"]
+        },
+        {
+            "name": "Fire Bolt",
+            "description": "You hurl a mote of fire at a creature or object within range.",
+            "level": 0,
+            "range": "120 feet",
+            "castingTime": "1 action",
+            "duration": "Instantaneous",
+            "recommendedFor": ["Wizard"]
+        },
+        {
+            "name": "Sacred Flame",
+            "description": "Flame-like radiance descends on a creature you can see within range.",
+            "level": 0,
+            "range": "60 feet",
+            "castingTime": "1 action",
+            "duration": "Instantaneous",
+            "recommendedFor": ["Cleric"]
+        },
+        {
+            "name": "Prestidigitation",
+            "description": "This spell is a minor magical trick that novice spellcasters use for practice.",
+            "level": 0,
+            "range": "10 feet",
+            "castingTime": "1 action",
+            "duration": "Up to 1 hour",
+            "recommendedFor": ["Bard", "Wizard"]
+        },
+        {
+            "name": "Thaumaturgy",
+            "description": "You manifest a minor wonder, a sign of supernatural power.",
+            "level": 0,
+            "range": "30 feet",
+            "castingTime": "1 action",
+            "duration": "Up to 1 minute",
+            "recommendedFor": ["Cleric"]
+        },
+        {
+            "name": "Mage Hand",
+            "description": "A spectral, floating hand appears at a point you choose within range.",
+            "level": 0,
+            "range": "30 feet",
+            "castingTime": "1 action",
+            "duration": "1 minute",
+            "recommendedFor": ["Bard", "Wizard"]
+        },
+        {
+            "name": "Guidance",
+            "description": "You touch one willing creature. Once before the spell ends, the target can roll a d4 and add the number rolled to one ability check of its choice.",
+            "level": 0,
+            "range": "Touch",
+            "castingTime": "1 action",
+            "duration": "Concentration, up to 1 minute",
+            "recommendedFor": ["Cleric"]
+        }
+    ],
+    "spells_level_1": [
+        {
+            "name": "Cure Wounds",
+            "description": "A creature you touch regains a number of hit points equal to 1d8 + your spellcasting ability modifier.",
+            "level": 1,
+            "range": "Touch",
+            "castingTime": "1 action",
+            "duration": "Instantaneous",
+            "recommendedFor": ["Cleric", "Bard"]
+        },
+        {
+            "name": "Mage Armor",
+            "description": "You touch a willing creature who isn’t wearing armor, and a protective magical force surrounds it.",
+            "level": 1,
+            "range": "Touch",
+            "castingTime": "1 action",
+            "duration": "8 hours",
+            "recommendedFor": ["Wizard"]
+        },
+        {
+            "name": "Shield",
+            "description": "An invisible barrier of magical force appears and protects you.",
+            "level": 1,
+            "range": "Self",
+            "castingTime": "1 reaction",
+            "duration": "1 round",
+            "recommendedFor": ["Wizard"]
+        },
+        {
+            "name": "Healing Word",
+            "description": "A creature of your choice that you can see within range regains hit points.",
+            "level": 1,
+            "range": "60 feet",
+            "castingTime": "1 bonus action",
+            "duration": "Instantaneous",
+            "recommendedFor": ["Bard", "Cleric"]
+        },
+        {
+            "name": "Detect Magic",
+            "description": "For the duration, you sense the presence of magic within 30 feet of you.",
+            "level": 1,
+            "range": "Self",
+            "castingTime": "1 action",
+            "duration": "Concentration, up to 10 minutes",
+            "recommendedFor": ["Wizard", "Cleric"]
+        },
+        {
+            "name": "Tasha's Hideous Laughter",
+            "description": "A creature of your choice that you can see perceives everything as hilariously funny and falls into fits of laughter.",
+            "level": 1,
+            "range": "30 feet",
+            "castingTime": "1 action",
+            "duration": "Concentration, up to 1 minute",
+            "recommendedFor": ["Bard"]
+        },
+        {
+            "name": "Shield of Faith",
+            "description": "A shimmering field appears and surrounds a creature of your choice, granting +2 AC.",
+            "level": 1,
+            "range": "60 feet",
+            "castingTime": "1 bonus action",
+            "duration": "Concentration, up to 10 minutes",
+            "recommendedFor": ["Cleric"]
+        },
+        {
+            "name": "Feather Fall",
+            "description": "Choose up to five falling creatures within range. A falling creature’s rate of descent slows to 60 feet per round.",
+            "level": 1,
+            "range": "60 feet",
+            "castingTime": "1 reaction",
+            "duration": "1 minute",
+            "recommendedFor": ["Bard", "Wizard"]
+        }
+    ],
+    "spells_level_2": [
+        {
+            "name": "Hold Person",
+            "description": "Choose a humanoid that you can see within range. The target must succeed on a Wisdom saving throw or be paralyzed.",
+            "level": 2,
+            "range": "60 feet",
+            "castingTime": "1 action",
+            "duration": "Up to 1 minute",
+            "recommendedFor": ["Cleric", "Wizard"]
+        },
+        {
+            "name": "Shatter",
+            "description": "A sudden loud ringing noise painfully intense erupts from a point of your choice.",
+            "level": 2,
+            "range": "60 feet",
+            "castingTime": "1 action",
+            "duration": "Instantaneous",
+            "recommendedFor": ["Bard", "Wizard"]
+        },
+        {
+            "name": "Lesser Restoration",
+            "description": "You touch a creature and can end one disease or condition afflicting it.",
+            "level": 2,
+            "range": "Touch",
+            "castingTime": "1 action",
+            "duration": "Instantaneous",
+            "recommendedFor": ["Cleric"]
+        },
+        {
+            "name": "Misty Step",
+            "description": "Briefly surrounded by silvery mist, you teleport up to 30 feet to an unoccupied space you can see.",
+            "level": 2,
+            "range": "Self",
+            "castingTime": "1 bonus action",
+            "duration": "Instantaneous",
+            "recommendedFor": ["Wizard"]
+        },
+        {
+            "name": "Calm Emotions",
+            "description": "You attempt to suppress strong emotions in a group of people.",
+            "level": 2,
+            "range": "60 feet",
+            "castingTime": "1 action",
+            "duration": "Concentration, up to 1 minute",
+            "recommendedFor": ["Bard", "Cleric"]
+        },
+        {
+            "name": "Invisibility",
+            "description": "A creature you touch becomes invisible until the spell ends.",
+            "level": 2,
+            "range": "Touch",
+            "castingTime": "1 action",
+            "duration": "Concentration, up to 1 hour",
+            "recommendedFor": ["Bard", "Wizard"]
+        },
+        {
+            "name": "Enhance Ability",
+            "description": "You touch a creature and bestow magical enhancement.",
+            "level": 2,
+            "range": "Touch",
+            "castingTime": "1 action",
+            "duration": "Concentration, up to 1 hour",
+            "recommendedFor": ["Cleric", "Bard"]
+        },
+        {
+            "name": "Mirror Image",
+            "description": "Three illusory duplicates of yourself appear in your space.",
+            "level": 2,
+            "range": "Self",
+            "castingTime": "1 action",
+            "duration": "1 minute",
+            "recommendedFor": ["Wizard"]
+        }
+    ]
+}

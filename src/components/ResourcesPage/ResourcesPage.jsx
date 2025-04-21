@@ -3,6 +3,7 @@ function ResourcesPage() {
       <section>
         <h2>Under Construction!</h2>
       </section>
+
     );
   }
   

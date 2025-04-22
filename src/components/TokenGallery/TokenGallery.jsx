@@ -30,7 +30,7 @@ function TokenGallery( {onSelect} ) {
                         key={token.id} onClick={() => setSelectedTokenId(token.id)}>
                         
                         <img src={token.url} alt={`${token.race} ${token.class}`} />
-                        <p>{token.race} {token.class}</p>
+                        <p>{token.race}</p>
                         </div>
                     ))}
                 </div>

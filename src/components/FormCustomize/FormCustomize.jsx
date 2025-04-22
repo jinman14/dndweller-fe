@@ -78,6 +78,40 @@ function FormCustomize() {
                   <p><strong>Class:</strong> {selectedClass}</p>
                 </div>
             )}
+
+            {selectedStats && Object.keys(selectedStats).length > 0 && (
+              <div className='form-selection confirmed-gear'>
+                <h4>Stats (Base 8 + Bonus):</h4>
+                <ul>
+                  {Object.entries(selectedStats).map(([stat, bonus]) => {
+                    const total = 8 + bonus;
+                    const modifier = Math.floor((total - 10) / 2)
+                    const modifierLabel = modifier >= 0 ? `+${modifier}` : modifier
+                        return (
+                        <li key={stat}>
+                            {stat}: {total} (mod: {modifierLabel})
+                        </li>
+                        )
+                    })}
+                </ul>
+              </div>
+            )}
+
+            {selectedSkills && Object.keys(selectedSkills).length > 0 && (
+              <div className='form-selection confirmed-gear'>
+                <h4>Skills (Proficient if {'>'} 0):</h4>
+                <ul>
+                  {Object.entries(selectedSkills).map(([skill, value]) => {
+                    const proficiencyBonus = value > 0 ? 2 : 0
+                        return (
+                        <li key={skill}>
+                            {skill}: +{proficiencyBonus}
+                        </li>
+                        )
+                    })}
+                </ul>
+              </div>
+            )}
         
             {confirmedWeapon && (
                 <div className="confirmed-gear">

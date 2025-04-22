@@ -9,8 +9,8 @@ import GenderSelection from "../GenderSelection/GenderSelection";
 function FormView() {
     const { state } = useLocation();
 
-    // const selectedRace = state?.selectedRace;
-    // const selectedClass = state?.selectedClass;
+    const selectedRace = state?.selectedRace;
+    const selectedClass = state?.selectedClass;
     const [selectedToken, setSelectedToken] = useState(null)
     const [selectedGender, setSelectedGender] = useState(null)
     const [availableStats, setAvailableStats] = useState([])
@@ -25,7 +25,7 @@ function FormView() {
     const MAX_POINTS_PER_SKILL = 3;
 
         useEffect(() => {
-            if (!selectedToken) return
+            if (!selectedClass) return
     
             fetch('/stats_data.json')
             .then((response) => response.json())
@@ -34,21 +34,30 @@ function FormView() {
                 // console.log("Stats LOADED:", classStats)
                 setAvailableStats(classStats || [])
             })
-        }, [selectedToken])
+        }, [selectedClass])
     
         useEffect(() => {
-            if(!selectedToken) return
+            if(!selectedClass) return
     
             fetch('/skills_data.json')
             .then((response) => response.json())
             .then((data) => {
                 const filteredSkills = data.filter((skill) => {
-                    return skill.recommendedFor.includes(selectedToken.class)
+                    return skill.recommendedFor.includes(selectedClass)
                 })
                 setAvailableSkills(filteredSkills)
             })
-        }, [selectedToken])
+        }, [selectedClass])
   
+        let statModifiers = {};
+
+            if (confirmedStats) {
+                for (const [statName, points] of Object.entries(selectedStats)) {
+                    const total = BASE_STAT_VALUE + points;
+                    statModifiers[statName.toLowerCase()] = Math.floor((total - 10) / 2);
+                }
+            }
+
         return (
             <section>
                 <div className='form-selection'>{/* Token */}
@@ -70,13 +79,19 @@ function FormView() {
                     </div>
                 )}
 
-            {selectedGender && (
+            {selectedToken && selectedGender && selectedClass && (
                 <div className='form-selection'>{/* Stats */}
                     {availableStats.map((stat) => {
                         const assignedPoints = selectedStats[stat.name] || 0
+                        
                         return (
                             <div className="stat-card" key={stat.name}>
-                                <h4>{stat.name} | {BASE_STAT_VALUE + assignedPoints}</h4>
+                                <h4>{stat.name} | {BASE_STAT_VALUE + assignedPoints}
+                                    {confirmedStats && (
+                                        <> (mod: {Math.floor((BASE_STAT_VALUE + assignedPoints - 10) / 2) >= 0 ? "+" : ""}
+                                        {Math.floor((BASE_STAT_VALUE + assignedPoints - 10) / 2)})</>
+                                    )}
+                                </h4>
                                 <p>{stat.description}</p>
                                 {!confirmedStats && (
                                   <p><strong>Recommended for:</strong> {stat.recommendedFor.join(", ")}</p>
@@ -135,10 +150,17 @@ function FormView() {
                 <div className='form-selection'>{/* Skills */}
                     {availableSkills.map(skill => {
                         const assignedSkillPoints = selectedSkills[skill.name] || 0
+                        const relatedStat = skill.statDependency
+                        const baseMod = statModifiers[relatedStat] || 0
+                        const proficiencyBonus = 2
+                        const isProficient = assignedSkillPoints > 0
+                        const skillBonus = baseMod + (isProficient ? proficiencyBonus : 0)
+
                         return (
                             <div key={skill.name} className="skill-card">
                                 <h4>{skill.name} | {assignedSkillPoints}</h4>
                                 <p>{skill.description}</p>
+                                <p>Skill Bonus: {skillBonus >= 0 ? "+" : ""}{skillBonus}</p>
                                 <div className="skill-buttons">
                                     {/* - Button */}
                                     <button
@@ -181,6 +203,8 @@ function FormView() {
                                 selectedGender,
                                 selectedStats,
                                 selectedSkills,
+                                selectedClass,
+                                selectedRace
                             }}
                             className="form-customize-link"
                         >
@@ -196,6 +220,3 @@ function FormView() {
 }
 
 export default FormView;
-
-
-

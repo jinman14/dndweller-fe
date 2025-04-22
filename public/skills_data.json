@@ -2,60 +2,70 @@
     {
       "name": "Acrobatics",
       "stat": "Dexterity",
+      "statDependency": "dexterity",
       "description": "Perform flips, tricks, and feats of balance.",
       "recommendedFor": ["Rogue"]
     },
     {
       "name": "Athletics",
       "stat": "Strength",
+      "statDependency": "strength",
       "description": "Climb, jump, and swim with physical prowess.",
       "recommendedFor": ["Fighter"]
     },
     {
       "name": "Arcana",
       "stat": "Intelligence",
+      "statDependency": "intelligence",
       "description": "Recall knowledge about spells, magic items, and lore.",
       "recommendedFor": ["Wizard"]
     },
     {
       "name": "Insight",
       "stat": "Wisdom",
+      "statDependency": "wisdom",
       "description": "Discern someone’s true intentions or emotional state.",
       "recommendedFor": ["Cleric"]
     },
     {
       "name": "Performance",
       "stat": "Charisma",
+      "statDependency": "charisma",
       "description": "Charm audiences with song, dance, or storytelling.",
       "recommendedFor": ["Bard"]
     },
     {
       "name": "Deception",
       "stat": "Charisma",
+      "statDependency": "charisma",
       "description": "Convince others of lies or half-truths.",
       "recommendedFor": ["Bard", "Rogue"]
     },
     {
       "name": "Intimidation",
       "stat": "Charisma",
+      "statDependency": "charisma",
       "description": "Coerce or frighten others into action.",
       "recommendedFor": ["Fighter", "Cleric"]
     },
     {
       "name": "Investigation",
       "stat": "Intelligence",
+      "statDependency": "intelligence",
       "description": "Analyze clues and solve mysteries.",
       "recommendedFor": ["Wizard", "Rogue"]
     },
     {
       "name": "Religion",
       "stat": "Intelligence",
+      "statDependency": "intelligence",
       "description": "Recall lore about deities and rituals.",
       "recommendedFor": ["Cleric", "Wizard"]
     },
     {
       "name": "Stealth",
       "stat": "Dexterity",
+      "statDependency": "dexterity",
       "description": "Sneak past or hide from others.",
       "recommendedFor": ["Rogue"]
     }

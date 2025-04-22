@@ -11,6 +11,8 @@ function FormCustomize() {
     const selectedGender = state?.selectedGender;
     const selectedStats = state?.selectedStats;
     const selectedSkills = state?.selectedSkills;
+    const selectedClass = state?.selectedClass;
+    const selectedRace = state?.selectedRace;
 
     const [availableCantrips, setAvailableCantrips] = useState([])
     const [selectedCantrips, setSelectedCantrips] = useState([])
@@ -30,45 +32,52 @@ function FormCustomize() {
     const [characterName, setCharacterName] = useState("")  
 
     useEffect(() => {
-        if(!selectedToken) return
+        if(!selectedClass) return
 
         fetch('/spells_n_cantrips_data.json')
         .then((response) => response.json())
         .then((data) => {
             const filterCantrips = data.cantrips.filter((cantrip) => {
-                return cantrip.recommendedFor.includes(selectedToken.class)
+                return cantrip.recommendedFor.includes(selectedClass)
             })
             const filterLevel1Spells = data.spells_level_1.filter((level1) => {
-                return level1.recommendedFor.includes(selectedToken.class)
+                return level1.recommendedFor.includes(selectedClass)
             })
             const filterLevel2Spells = data.spells_level_2.filter((level2) => {
-                return level2.recommendedFor.includes(selectedToken.class)
+                return level2.recommendedFor.includes(selectedClass)
             })
             setAvailableCantrips(filterCantrips)
             setAvailableLevel1Spells(filterLevel1Spells)
             setAvailableLevel2Spells(filterLevel2Spells)
         })
-    }, [selectedToken])
+    }, [selectedClass])
 
     useEffect(() => {
-        if (!selectedToken) return
+        if (!selectedClass) return
 
         fetch('/weapons_n_armor.json')
         .then((response) => response.json())
         .then((data) => {
             const filteredWeapons = data.weapons.filter((weapon) => {
-                return weapon.recommendedFor.includes(selectedToken.class)
+                return weapon.recommendedFor.includes(selectedClass)
             })
             const filteredArmor = data.armor.filter((armor) => {
-                return armor.recommendedFor.includes(selectedToken.class)
+                return armor.recommendedFor.includes(selectedClass)
             })
             setAvailableWeapons(filteredWeapons)
             setAvailableArmor(filteredArmor)
         })
-    }, [selectedToken])
+    }, [selectedClass])
 
     return (
         <section>
+            {selectedRace && selectedClass && (
+                <div className='form-selection confirmed-gear'>
+                  <h3>Final Review</h3>
+                  <p><strong>Race:</strong> {selectedRace}</p>
+                  <p><strong>Class:</strong> {selectedClass}</p>
+                </div>
+            )}
         
             {confirmedWeapon && (
                 <div className="confirmed-gear">
@@ -103,6 +112,7 @@ function FormCustomize() {
                 </ul>
             </div>
             )}
+
 
             {confirmedLevel2Spells && (
             <div className="confirmed-summary">

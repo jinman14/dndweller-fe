@@ -1,0 +1,61 @@
+{
+    "weapons": [
+      {
+        "name": "Longsword",
+        "description": "A versatile blade favored by skilled warriors.",
+        "range": "Melee",
+        "recommendedFor": ["Fighter"]
+      },
+      {
+        "name": "Dagger",
+        "description": "A small, easily concealed blade ideal for quick strikes.",
+        "range": "Melee / Thrown (20/60 ft)",
+        "recommendedFor": ["Rogue"]
+      },
+      {
+        "name": "Mace",
+        "description": "A heavy-headed weapon used to crush through armor.",
+        "range": "Melee",
+        "recommendedFor": ["Cleric"]
+      },
+      {
+        "name": "Rapier",
+        "description": "A slender, flexible blade designed for precision.",
+        "range": "Melee",
+        "recommendedFor": ["Bard"]
+      },
+      {
+        "name": "Quarterstaff",
+        "description": "A simple, two-handed wooden staff often used with magic.",
+        "range": "Melee",
+        "recommendedFor": ["Wizard"]
+      }
+    ],
+    "armor": [
+      {
+        "name": "Chain Mail",
+        "description": "Interlocking metal rings offering great protection.",
+        "recommendedFor": ["Fighter"]
+      },
+      {
+        "name": "Leather Armor",
+        "description": "Flexible armor made from toughened leather.",
+        "recommendedFor": ["Rogue"]
+      },
+      {
+        "name": "Scale Mail",
+        "description": "Overlapping metal plates that provide solid defense.",
+        "recommendedFor": ["Cleric"]
+      },
+      {
+        "name": "Studded Leather",
+        "description": "Leather armor reinforced with metal studs for added protection.",
+        "recommendedFor": ["Bard"]
+      },
+      {
+        "name": "Mage Robes",
+        "description": "Cloth garments enchanted with light magical protection.",
+        "recommendedFor": ["Wizard"]
+      }
+    ]
+  }

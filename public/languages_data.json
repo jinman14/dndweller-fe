@@ -1,0 +1,11 @@
+{
+    "Human": ["Common"],
+    "Elf": ["Common", "Elvish"],
+    "Half-Elf": ["Common", "Elvish"],
+    "Dwarf": ["Common", "Dwarvish"],
+    "Halfling": ["Common", "Halfling"],
+    "Gnome": ["Common", "Gnomish"],
+    "Half-Orc": ["Common", "Orc"],
+    "Tiefling": ["Common", "Infernal"],
+    "Dragonborn": ["Common", "Draconic"]
+}

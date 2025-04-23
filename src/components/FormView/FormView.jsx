@@ -16,13 +16,16 @@ function FormView() {
     const [availableStats, setAvailableStats] = useState([])
     const [selectedStats, setSelectedStats] = useState({})
     const [statPointsLeft, setStatPointsLeft] = useState(10)
+
     const BASE_STAT_VALUE = 8
     const MAX_STAT_POINTS_PER_STAT = 5
+    const MAX_POINTS_PER_SKILL = 3
+
     const [confirmedStats, setConfirmedStats] = useState(false)
     const [availableSkills, setAvailableSkills] = useState([])
     const [selectedSkills, setSelectedSkills] = useState({})
     const [skillPointsLeft, setSkillPointsLeft] = useState(5)
-    const MAX_POINTS_PER_SKILL = 3;
+    const [selectedLanguages, setSelectedLanguages] = useState([]);
 
         useEffect(() => {
             if (!selectedClass) return
@@ -31,7 +34,6 @@ function FormView() {
             .then((response) => response.json())
             .then((data) => {
                 const classStats = data
-                // console.log("Stats LOADED:", classStats)
                 setAvailableStats(classStats || [])
             })
         }, [selectedClass])
@@ -48,6 +50,17 @@ function FormView() {
                 setAvailableSkills(filteredSkills)
             })
         }, [selectedClass])
+
+        useEffect(() => {
+            if (!selectedRace) return
+          
+            fetch('/languages_data.json')
+              .then((response) => response.json())
+              .then((data) => {
+                const raceLangs = data[selectedRace] || []
+                setSelectedLanguages(raceLangs)
+              })
+        }, [selectedRace])
   
         let statModifiers = {};
 
@@ -179,11 +192,13 @@ function FormView() {
                                         {/* + Button */}
                                         <button
                                             onClick={() => {
+
                                                 if (skillPointsLeft > 0 && assignedSkillPoints < MAX_POINTS_PER_SKILL) {
                                                     setSelectedSkills(previousState => ({
                                                         ...previousState,
                                                         [skill.name]: assignedSkillPoints + 1
                                                     }))
+
                                                     setSkillPointsLeft(previousState => previousState - 1)
                                                 }
                                             }}
@@ -204,7 +219,8 @@ function FormView() {
                                 selectedStats,
                                 selectedSkills,
                                 selectedClass,
-                                selectedRace
+                                selectedRace,
+                                selectedLanguages
                             }}
                             className="form-customize-link"
                         >

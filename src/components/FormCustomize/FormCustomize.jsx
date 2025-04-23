@@ -13,6 +13,7 @@ function FormCustomize() {
     const selectedSkills = state?.selectedSkills;
     const selectedClass = state?.selectedClass;
     const selectedRace = state?.selectedRace;
+    const selectedLanguages = state?.selectedLanguages || [];
 
     const [availableCantrips, setAvailableCantrips] = useState([])
     const [selectedCantrips, setSelectedCantrips] = useState([])
@@ -30,6 +31,10 @@ function FormCustomize() {
     const [selectedArmor, setSelectedArmor] = useState(null)
     const [confirmedArmor, setConfirmedArmor] = useState(false)
     const [characterName, setCharacterName] = useState("")  
+
+    const hasCantrips = availableCantrips.length > 0
+    const hasLevel1Spells = availableLevel1Spells.length > 0
+    const hasLevel2Spells = availableLevel2Spells.length > 0
 
     useEffect(() => {
         if(!selectedClass) return
@@ -161,27 +166,27 @@ function FormCustomize() {
 
 
             {selectedGender && !confirmedWeapon && (
-            <div className='form-selection'>{/* Weapons */}
-                <h3>Select Your Weapon</h3>
-                {availableWeapons.map(weapon => {
-                const isSelected = selectedWeapon === weapon.name
+                <div className='form-selection'>{/* Weapons */}
+                    <h3>Select Your Weapon</h3>
+                    {availableWeapons.map(weapon => {
+                    const isSelected = selectedWeapon === weapon.name
 
-                return (
-                    <div key={weapon.name} className={`weapon-card ${isSelected ? 'selected' : ''}`}>
-                    <h4>{weapon.name}</h4>
-                    <p><strong>Range:</strong> {weapon.range}</p>
-                    <p>{weapon.description}</p>
-                    <button onClick={() => {
-                        if (isSelected) {
-                        setSelectedWeapon(null)
-                        } else {
-                        setSelectedWeapon(weapon.name)
-                        }
-                    }}>
-                        {isSelected ? 'Unselect' : 'Select'}
-                    </button>
-                    </div>
-                )
+                    return (
+                        <div key={weapon.name} className={`weapon-card ${isSelected ? 'selected' : ''}`}>
+                        <h4>{weapon.name}</h4>
+                        <p><strong>Range:</strong> {weapon.range}</p>
+                        <p>{weapon.description}</p>
+                            <button onClick={() => {
+                                if (isSelected) {
+                                setSelectedWeapon(null)
+                                } else {
+                                setSelectedWeapon(weapon.name)
+                                }
+                            }}>
+                                {isSelected ? 'Unselect' : 'Select'}
+                            </button>
+                        </div>
+                    )
                 })}
                 <button
                 className="confirm-button"
@@ -225,50 +230,65 @@ function FormCustomize() {
                 </div>
             )}
             
-            {confirmedWeapon && confirmedArmor && !confirmedCantrips && (
+            {confirmedWeapon && confirmedArmor && hasCantrips && !confirmedCantrips && (
                 <div className='form-selection'> {/* Cantrips */}
                     <h3>Select Your Cantrips, Hero</h3>
-                        {availableCantrips.map((cantrip) => {
-                            const isSelected = selectedCantrips.includes(cantrip.name)
+                    {availableCantrips.map((cantrip) => {
+                    const isSelected = selectedCantrips.includes(cantrip.name)
 
-                            return (
-                                <div key={cantrip.name} className={`cantrip-card ${isSelected ? 'selected' : ''}`}>
-                                <h4>{cantrip.name}</h4>
-                                <p><strong>Range:</strong> {cantrip.range}</p>
-                                <p><strong>Casting Time:</strong> {cantrip.castingTime}</p>
-                                <p>{cantrip.description}</p>
+                    return (
+                        <div key={cantrip.name} className={`cantrip-card ${isSelected ? 'selected' : ''}`}>
+                        <h4>{cantrip.name}</h4>
+                        <p><strong>Range:</strong> {cantrip.range}</p>
+                        <p><strong>Casting Time:</strong> {cantrip.castingTime}</p>
+                        <p>{cantrip.description}</p>
 
-                                <button onClick={() => {
-                                    if (isSelected) {
-                                    setSelectedCantrips(previousState => previousState.filter(name => name !== cantrip.name));
-                                    } else if (selectedCantrips.length < 3) {
-                                    setSelectedCantrips(previousState => [...previousState, cantrip.name])
-                                    }
-                                }}>
-                                    {isSelected ? 'Unselect' : 'Select'}
-                                </button>
-                            </div>
-                        )
+                        <button onClick={() => {
+                            if (isSelected) {
+                            setSelectedCantrips(prev => prev.filter(name => name !== cantrip.name));
+                            } else if (selectedCantrips.length < 3) {
+                            setSelectedCantrips(prev => [...prev, cantrip.name]);
+                            }
+                        }}>
+                            {isSelected ? 'Unselect' : 'Select'}
+                        </button>
+                        </div>
+                    )
                     })}
                     <p>Cantrips Selected: {selectedCantrips.length} / 3</p>
                     <button
                         className="confirm-button"
                         onClick={() => setConfirmedCantrips(true)}
                         disabled={selectedCantrips.length !== 3}>
-                        
                         Confirm Cantrips
                     </button>
                 </div>
             )}
+
+            {confirmedWeapon && confirmedArmor && !hasCantrips && !hasLevel1Spells && !confirmedCantrips && (
+            <div className='form-selection'>
+                <h3>This class doesn't use cantrips.</h3>
+                <p>Proceeding to Level 1 spells.</p>
+                <button
+                    className="confirm-button"
+                        onClick={() => {
+                            setConfirmedCantrips(true)
+                        }}>
+                    Continue
+                </button>
+            </div>
+            )}
+
+
             
-            {confirmedCantrips && !confirmedLevel1Spells && (
+            {confirmedCantrips && hasLevel1Spells && !confirmedLevel1Spells && (
                 <div className='form-selection'> {/* Spells */}
                     <h3>Select Your Level 1 Spells, Hero</h3>
                         {availableLevel1Spells.map((spells_level_1) => {
                             const isSelected = selectedLevel1Spells.includes(spells_level_1.name)
-
+                            
                             return (
-                            <div key={spells_level_1.name} className={`spells_level_1-card ${isSelected ? 'selected' : ''}`}>
+                                <div key={spells_level_1.name} className={`spells_level_1-card ${isSelected ? 'selected' : ''}`}>
                                 <h4>{spells_level_1.name}</h4>
                                 <p><strong>Range:</strong> {spells_level_1.range}</p>
                                 <p><strong>Casting Time:</strong> {spells_level_1.castingTime}</p>
@@ -276,9 +296,9 @@ function FormCustomize() {
 
                                 <button onClick={() => {
                                     if (isSelected) {
-                                    setSelectedLevel1Spells(previousState => previousState.filter(name => name !== spells_level_1.name));
+                                        setSelectedLevel1Spells(previousState => previousState.filter(name => name !== spells_level_1.name));
                                     } else if (selectedLevel1Spells.length < 4) {
-                                    setSelectedLevel1Spells(previousState => [...previousState, spells_level_1.name])
+                                        setSelectedLevel1Spells(previousState => [...previousState, spells_level_1.name])
                                     }
                                 }}>
                                     {isSelected ? 'Unselect' : 'Select'}
@@ -297,14 +317,14 @@ function FormCustomize() {
                 </div>
             )}
 
-            {confirmedLevel1Spells && !confirmedLevel2Spells && (
+            {confirmedLevel1Spells && hasLevel2Spells && !confirmedLevel2Spells && (
                 <div className='form-selection'> {/* Spells */}
                     <h3>Select Your Level 2 Spells, Hero</h3>
                         {availableLevel2Spells.map((spells_level_2) => {
                             const isSelected = selectedLevel2Spells.includes(spells_level_2.name)
-
+                            
                             return (
-                            <div key={spells_level_2.name} className={`spells_level_2-card ${isSelected ? 'selected' : ''}`}>
+                                <div key={spells_level_2.name} className={`spells_level_2-card ${isSelected ? 'selected' : ''}`}>
                                 <h4>{spells_level_2.name}</h4>
                                 <p><strong>Range:</strong> {spells_level_2.range}</p>
                                 <p><strong>Casting Time:</strong> {spells_level_2.castingTime}</p>
@@ -312,9 +332,9 @@ function FormCustomize() {
 
                                 <button onClick={() => {
                                     if (isSelected) {
-                                    setSelectedLevel2Spells(previousState => previousState.filter(name => name !== spells_level_2.name));
+                                        setSelectedLevel2Spells(previousState => previousState.filter(name => name !== spells_level_2.name));
                                     } else if (selectedLevel2Spells.length < 2) {
-                                    setSelectedLevel2Spells(previousState => [...previousState, spells_level_2.name])
+                                        setSelectedLevel2Spells(previousState => [...previousState, spells_level_2.name])
                                     }
                                 }}>
                                     {isSelected ? 'Unselect' : 'Select'}
@@ -333,6 +353,34 @@ function FormCustomize() {
                 </div>
             )}
 
+            {confirmedWeapon && confirmedArmor && confirmedCantrips && !hasLevel1Spells && !confirmedLevel1Spells && (
+                <div className='form-selection'>
+                    <h3>No Level 1 Spells Available for Your Class</h3>
+                    <p>Skipping this spells section.</p>
+                    <button
+                        className="confirm-button"
+                        onClick={() => {
+                            setConfirmedLevel1Spells(true)
+                        }}>
+                        Continue
+                    </button>
+                </div>
+            )}
+            
+            {confirmedWeapon && confirmedArmor && confirmedCantrips && confirmedLevel1Spells && !hasLevel2Spells && !confirmedLevel2Spells && (
+                <div className='form-selection'>
+                    <h3>No Level 2 Spells Available for Your Class</h3>
+                    <p>Skipping this spells section.</p>
+                        <button
+                            className="confirm-button"
+                            onClick={() => {
+                                setConfirmedLevel2Spells(true)
+                            }}>
+                            Continue
+                        </button>
+                </div>
+            )}
+
             {confirmedLevel2Spells && (
                 <div className='form-selection'> {/* Name */}
                     <h3>Name Your Hero</h3>
@@ -347,23 +395,77 @@ function FormCustomize() {
                 </div>
             )}
             
-            {characterName && (
+           {characterName && (
                 <div className='form-selection'> {/* Submit Button */}
                     <button
-                    className="confirm-button"
-                    onClick={() => {
-                        navigate("/sheet", {
-                            state: {
-                              skills: selectedSkills,
-                              cantrips: selectedCantrips,
-                              level1Spells: selectedLevel1Spells,
-                              level2Spells: selectedLevel2Spells,
-                              weapon: selectedWeapon,
-                              armor: selectedArmor
+                        className="confirm-button"
+                        onClick={() => {
+                            const getHitPoints = (characterClass, conMod = 0, level = 3) => {
+                                const hitDiceMap = {
+                                Fighter: 10,
+                                Rogue: 8,
+                                Bard: 8,
+                                Cleric: 8,
+                                Wizard: 6
+                                }
+                            
+                                const hitDie = hitDiceMap[characterClass] || 6
+                                const firstLevel = hitDie // Max at level 1
+                                const averagePerLevel = Math.floor(hitDie / 2) + 1 // Average per level after 1
+                            
+                                return firstLevel + (averagePerLevel * (level - 1)) + (conMod * level)
                             }
-                        })
-                    }}
-                    >Submit Your Dweller!
+
+                            const getSpeedForRace = (race) => {
+                                const speedTable = {
+                                    Human: 30,
+                                    Elf: 30,
+                                    "Half-Elf": 30, // had to use "" for this to work 
+                                    Dwarf: 25,
+                                    Halfling: 25,
+                                    Gnome: 25,
+                                    "Half-Orc": 30,
+                                    Tiefling: 30,
+                                    Dragonborn: 30
+                                }
+                                return speedTable[race] || "N/A"
+                            }
+
+                            const BASE_STAT_VALUE = 8;
+                            const ALL_STATS = ["Strength", "Dexterity", "Constitution", "Intelligence", "Wisdom", "Charisma"]
+
+                            const normalizedStats = ALL_STATS.reduce((acc, stat) => {
+                            const bonus = selectedStats[stat] || 0
+                            acc[stat] = BASE_STAT_VALUE + bonus
+                            return acc
+                        }, {})
+
+                            const conScore = normalizedStats.Constitution || 8
+                            const conMod = Math.floor((conScore - 10) / 2)
+
+                            navigate("/sheet", {
+                                state: {
+                                    character: {
+                                        name: characterName,
+                                        race: selectedRace,
+                                        class: selectedClass,
+                                        gender: selectedGender,
+                                        token: selectedToken,
+                                        stats: normalizedStats,
+                                        skills: selectedSkills,
+                                        cantrips: selectedCantrips,
+                                        level1Spells: selectedLevel1Spells,
+                                        level2Spells: selectedLevel2Spells,
+                                        weapon: selectedWeapon,
+                                        armor: selectedArmor,
+                                        hp: getHitPoints(selectedClass, conMod, 3),
+                                        speed: getSpeedForRace(selectedRace),
+                                        languages: selectedLanguages
+                                    }
+                                }
+                            })
+                        }}
+                        >Submit Your Dweller!
                     </button>
                 </div>
             )}

@@ -1,0 +1,27 @@
+.resources-container {
+    padding: 2rem;
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.resources-list {
+    list-style: none;
+    padding: 0;
+    margin-top: 1.5rem;
+}
+
+.resources-list li {
+    margin: 1rem 0;
+}
+
+.resources-list a {
+    text-decoration: none;
+    color: #61dafb;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+.resources-list a:hover {
+    color: #21a1f1;
+}

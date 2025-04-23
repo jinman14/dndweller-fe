@@ -15,7 +15,7 @@ function FormView() {
     const [selectedGender, setSelectedGender] = useState(null)
     const [availableStats, setAvailableStats] = useState([])
     const [selectedStats, setSelectedStats] = useState({})
-    const [statPointsLeft, setStatPointsLeft] = useState(10)
+    const [statPointsLeft, setStatPointsLeft] = useState(27)
 
     const BASE_STAT_VALUE = 8
     const MAX_STAT_POINTS_PER_STAT = 5

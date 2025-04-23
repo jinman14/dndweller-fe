@@ -39,11 +39,12 @@ console.log(character)
       </section>
 
       <section className="skills">
-        <h2>Spells & Skills</h2>
+        <h2>Spells</h2>
         <ul>
           {character?.cantrips?.length > 0 && (
             <>
-              <li><strong>Cantrips:</strong></li>
+              <p><strong>Cantrips:</strong></p>
+              <p><strong>As many as you want!</strong></p>
                 {character.cantrips.map((spell, index) => (
               <li key={`cantrip-${index}`}> {spell}</li>
               ))}
@@ -69,20 +70,10 @@ console.log(character)
               ))}
             </>
           )}
-
-          {character?.skills && Object.keys(character.skills).length > 0 && (
-            <>
-              <li><strong>Skills:</strong></li>
-                {Object.entries(character.skills).map(([skill, value], index) => (
-              <li key={`skill-${index}`}>{skill}: +{value > 0 ? 2 : 0}</li>
-              ))}
-            </>
-          )}
         </ul>     
 
         {!character?.cantrips?.length && !character?.level1Spells?.length && !character?.level2Spells?.length && (
-          !character?.skills || Object.keys(character.skills).length === 0) && (
-          <li>No skills or spells listed.</li>
+          <li>No spells listed.</li>
         )}
       </section>
 

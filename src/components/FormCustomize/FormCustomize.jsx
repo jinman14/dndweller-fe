@@ -39,18 +39,19 @@ function FormCustomize() {
     useEffect(() => {
         if(!selectedClass) return
 
-        fetch('/spells_n_cantrips_data.json')
+        fetch(`https://www.dnd5eapi.co/api/2014/classes/${selectedClass.toLowerCase()}/spells`)
         .then((response) => response.json())
         .then((data) => {
-            const filterCantrips = data.cantrips.filter((cantrip) => {
-                return cantrip.recommendedFor.includes(selectedClass)
+            const filterCantrips = data["results"].filter((spell) => {
+                return spell["level"] === 0
             })
-            const filterLevel1Spells = data.spells_level_1.filter((level1) => {
-                return level1.recommendedFor.includes(selectedClass)
+            const filterLevel1Spells = data["results"].filter((spell) => {
+                return spell["level"] === 1
             })
-            const filterLevel2Spells = data.spells_level_2.filter((level2) => {
-                return level2.recommendedFor.includes(selectedClass)
+            const filterLevel2Spells = data["results"].filter((spell) => {
+                return spell["level"] === 2
             })
+
             setAvailableCantrips(filterCantrips)
             setAvailableLevel1Spells(filterLevel1Spells)
             setAvailableLevel2Spells(filterLevel2Spells)

@@ -6,22 +6,26 @@ const SheetView = () => {
   const { state } = useLocation()
   const character = state?.character
 
-  // console.log("Received character data:", character);
   return (
     <div className="sheet-grid">
-
       <section className="header">
         <h1>{character?.name || "Name not found"}</h1>
         <p>{character?.race || "Race not found |"} | {character?.class || "Class not found |"} | Level {character?.level || 3} |</p>
       </section>
 
       <section className="stats">
-        {character?.stats ? Object.entries(character.stats).map (([key, value]) => (
-          <div className='stat' key={key}>
-            <h3>{key.toUpperCase()}</h3>
-            <p>{value}</p>
-          </div>
-        ))
+        {character?.stats ? Object.entries(character.stats).map(([key, value]) => {
+          const modifier = Math.floor((value - 10) / 2)
+          const modifierLabel = modifier >= 0 ? `+${modifier}` : modifier
+
+          return (
+            <div className='stat' key={key}>
+              <h3>{key.toUpperCase()}</h3>
+              <p>{value}</p>
+              <p>(Stat Mod:{modifierLabel})</p>
+            </div>
+          )
+        })
         : <p>No stats available</p>
       }
       </section>

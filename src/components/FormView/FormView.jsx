@@ -24,8 +24,7 @@ function FormView() {
     const [confirmedStats, setConfirmedStats] = useState(false)
     const [availableSkills, setAvailableSkills] = useState([])
     const [selectedSkills, setSelectedSkills] = useState({})
-    const [skillPointsLeft, setSkillPointsLeft] = useState(3)
-    const [selectedLanguages, setSelectedLanguages] = useState([]);
+    const [selectedLanguages, setSelectedLanguages] = useState([])
 
         useEffect(() => {
             if (!selectedClass) return

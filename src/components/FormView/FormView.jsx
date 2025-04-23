@@ -15,10 +15,10 @@ function FormView() {
     const [selectedGender, setSelectedGender] = useState(null)
     const [availableStats, setAvailableStats] = useState([])
     const [selectedStats, setSelectedStats] = useState({})
-    const [statPointsLeft, setStatPointsLeft] = useState(10)
+    const [statPointsLeft, setStatPointsLeft] = useState(27)
 
     const BASE_STAT_VALUE = 8
-    const MAX_STAT_POINTS_PER_STAT = 5
+    const MAX_STAT_POINTS_PER_STAT = 7
     const MAX_POINTS_PER_SKILL = 3
 
     const [confirmedStats, setConfirmedStats] = useState(false)
@@ -120,7 +120,11 @@ function FormView() {
                                                         ...previousState,
                                                         [stat.name]: assignedPoints - 1
                                                     }))
-                                                    setStatPointsLeft(previousState => previousState + 1)
+                                                    if ((assignedPoints) > 5)
+                                                        setStatPointsLeft(previousState => previousState + 2)
+                                                    else
+                                                        setStatPointsLeft(previousState => previousState +1)
+
                                                 }
                                             }}
                                             disabled={assignedPoints === 0}
@@ -132,9 +136,13 @@ function FormView() {
                                                 if (statPointsLeft > 0 && assignedPoints < MAX_STAT_POINTS_PER_STAT) {
                                                     setSelectedStats(previousState => ({
                                                         ...previousState,
-                                                        [stat.name]: assignedPoints + 1
+                                                        [stat.name]: assignedPoints + 1,
                                                     }))
-                                                    setStatPointsLeft(previousState => previousState - 1)
+                                                    console.log(assignedPoints)
+                                                    if ((assignedPoints) >= 5)
+                                                        setStatPointsLeft(previousState => previousState - 2)
+                                                    else
+                                                        setStatPointsLeft(previousState => previousState - 1)
                                                 }
                                             }}
                                             disabled={statPointsLeft === 0 || assignedPoints >= MAX_STAT_POINTS_PER_STAT}
@@ -198,7 +206,6 @@ function FormView() {
                                                         ...previousState,
                                                         [skill.name]: assignedSkillPoints + 1
                                                     }))
-
                                                     setSkillPointsLeft(previousState => previousState - 1)
                                                 }
                                             }}

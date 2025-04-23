@@ -25,8 +25,8 @@ function CharacterVault() {
         languages: ["Common", "Gnomish"],
         proficiency: 2,
         armor_class: 11,
-        creator: "DM_Alpha",
-        token_url: "https://via.placeholder.com/64", // sample image
+        creator: "The All Seer", //this may need to be added, will be discussed
+        token_url: "token_url",
         statistics: {
           str: 10,
           dex: 10,
@@ -52,14 +52,14 @@ function CharacterVault() {
       {
         id: 2,
         character_name: "Throg the Mighty",
-        level: 5,
+        level: 5, // to test for refactor or flexibility later
         race: "Orc",
         class: "Barbarian",
-        creator: "Player_Two",
+        creator: "Player_Two", //same here
         token_url: null // simulate missing image
       }
     ];
-
+// this is just to simulate the call to make sure it does it right. 
     useEffect(() => {
       const fetchMockData = async () => {
         await new Promise((response) => setTimeout(response, 300));

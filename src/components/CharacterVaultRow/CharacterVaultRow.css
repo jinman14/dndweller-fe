@@ -1,0 +1,31 @@
+.character-row {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border: 1px solid #ddd;
+    margin: 10px 0;
+    border-radius: 6px;
+    background-color: #f9f9;
+}
+
+.token-img {
+    width: 64px;
+    height: 64px;
+    object-fit: cover;
+    margin-right: 20px;
+}
+
+.character-info {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    gap: 20px;
+}
+
+.character-info div {
+    flex: 1;
+    min-width: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

@@ -201,9 +201,7 @@ function FormView() {
                             </div>
                         )
                     })}
-
-                    <p>Points Remaining: {skillPointsLeft}</p>
-                    {skillPointsLeft === 0 && (
+                    
                         <Link
                             to="/form/customize"
                             state={{
@@ -221,7 +219,6 @@ function FormView() {
                                 Move to Customization
                             </button>
                         </Link>
-                    )}
                 </div>
             )}
         </section>

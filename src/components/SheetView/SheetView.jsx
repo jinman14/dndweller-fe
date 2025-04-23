@@ -5,7 +5,7 @@ import './SheetView.css';
 const SheetView = () => {
   const { state } = useLocation()
   const character = state?.character
-
+console.log(character)
   return (
     <div className="sheet-grid">
       <section className="header">
@@ -52,7 +52,8 @@ const SheetView = () => {
 
           {character?.level1Spells?.length > 0 && (
             <>
-              <li><strong>Level 1 Spells:</strong></li>
+              <p><strong>Level 1 Spells:</strong></p>
+              <p><strong>Level 1 Slots: [  ] [  ] [  ] [  ]</strong></p>
                 {character.level1Spells.map((spell, index) => (
               <li key={`level1-${index}`}> {spell}</li>
               ))}
@@ -61,7 +62,8 @@ const SheetView = () => {
 
           {character?.level2Spells?.length > 0 && (
             <>
-              <li><strong>Level 2 Spells:</strong></li>
+              <p><strong>Level 2 Spells:</strong></p>
+              <p><strong>Level 2 Slots: [  ] [  ]</strong></p>
                 {character.level2Spells.map((spell, index) => (
               <li key={`level2-${index}`}> {spell}</li>
               ))}
@@ -101,6 +103,20 @@ const SheetView = () => {
             <li>No equipment listed.</li>
           )}
         </ul>
+      </section>
+
+      <section className="spells">
+      <h2>Skills</h2>
+        <ul>
+          {character?.skills && Object.keys(character.skills).length > 0 && (
+            <>
+              <li><strong>Skills:</strong></li>
+                {Object.entries(character.skills).map(([skill, value], index) => (
+              <li key={`skill-${index}`}>{skill}: +{value > 0 ? 2 : 0}</li>
+              ))}
+            </>
+          )}
+        </ul>     
       </section>
     </div>
   );

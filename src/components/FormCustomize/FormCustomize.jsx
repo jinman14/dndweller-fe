@@ -107,6 +107,7 @@ function FormCustomize() {
                 <h4>Skills (Proficient if Stat Mod is {'>'} 0):</h4>
                 <ul>
                   {Object.entries(selectedSkills).map(([skill, value]) => {
+                    console.log(selectedSkills)
                     const proficiencyBonus = value > 0 ? 2 : 0
                         return (
                         <li key={skill}>

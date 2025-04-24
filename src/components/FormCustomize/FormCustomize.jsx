@@ -78,9 +78,9 @@ function FormCustomize() {
     }, [selectedClass])
 
     const postCharacter = (characterData) => {
-        fetch("http://127.0.0.1:3000/api/v1/characters". {
+        fetch("http://127.0.0.1:3000/api/v1/characters", {
             method: "POST",
-            body: JSON.stringify({
+            body: {
                 name: characterData.name,
                 token: characterData.token.url,
                 level: 3,
@@ -89,9 +89,40 @@ function FormCustomize() {
                 gender: characterData.gender,
                 speed: characterData.speed,
                 languages: characterData.languages,
-                armor_class: characterData
-            })
-        })
+                armor_class: 10,
+                str: characterData.stats.Strength,
+                dex: characterData.stats.Dexterity,
+                con: characterData.stats.Constitution,
+                int: characterData.stats.Intelligence,
+                wis: characterData.stats.Wisdom,
+                cha: characterData.stats.Charisma,
+                equipment: [
+                    {
+                        name: characterData.weapon,
+                        damage_dice: "N/A",
+                        damage_type: "N/A",
+                        range: 0
+                    },
+                    {
+                        name: characterData.armor,
+                        base: 0,
+                        dex_bonus: true
+                    }
+                ],
+                skills: characterData.cantrips
+                .concat(characterData.level1Spells, characterData.level2Spells)
+                .map((spell) => {
+                    return {
+                        name: spell,
+                        level: 0,
+                        damage_type: "N/A",
+                        range: "N/A",
+                        description: "N/A"
+                    }
+                })
+            }
+        }).then((response) => response.json())
+        .then((json) => console.log(json))
     }
 
     return (
@@ -453,7 +484,6 @@ function FormCustomize() {
 
                             const conScore = normalizedStats.Constitution || 8
                             const conMod = Math.floor((conScore - 10) / 2)        
-                            
                             const character = {
                                 name: characterName,
                                 race: selectedRace,
@@ -471,6 +501,7 @@ function FormCustomize() {
                                 speed: getSpeedForRace(selectedRace),
                                 languages: selectedLanguages   
                             }
+                            console.log(character)
 
                             postCharacter(character)
                         }}

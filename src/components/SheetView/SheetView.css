@@ -3,7 +3,8 @@
     grid-template-areas:
       "header header"
       "stats core-info"
-      "skills equipment";
+      "skills equipment"
+      "skills spells";
     grid-template-columns: 1fr 1fr;
     gap: 1.5rem;
     max-width: 1000px;
@@ -57,6 +58,13 @@
   
   .equipment {
     grid-area: equipment;
+    background: #fff;
+    padding: 1rem;
+    border: 1px solid #ccc;
+  }
+
+  .spells {
+    grid-area: spells;
     background: #fff;
     padding: 1rem;
     border: 1px solid #ccc;

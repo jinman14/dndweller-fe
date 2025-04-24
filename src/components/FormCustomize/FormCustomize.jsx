@@ -238,9 +238,10 @@ function FormCustomize() {
 
             {selectedSkills && Object.keys(selectedSkills).length > 0 && (
               <div className='form-selection confirmed-gear'>
-                <h4>Skills (Proficient if {'>'} 0):</h4>
+                <h4>Skills (Proficient if Stat Mod is {'>'} 0):</h4>
                 <ul>
                   {Object.entries(selectedSkills).map(([skill, value]) => {
+                    console.log(selectedSkills)
                     const proficiencyBonus = value > 0 ? 2 : 0
                         return (
                         <li key={skill}>

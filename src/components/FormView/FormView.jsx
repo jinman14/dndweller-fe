@@ -15,17 +15,15 @@ function FormView() {
     const [selectedGender, setSelectedGender] = useState(null)
     const [availableStats, setAvailableStats] = useState([])
     const [selectedStats, setSelectedStats] = useState({})
-    const [statPointsLeft, setStatPointsLeft] = useState(10)
+    const [statPointsLeft, setStatPointsLeft] = useState(27)
 
     const BASE_STAT_VALUE = 8
-    const MAX_STAT_POINTS_PER_STAT = 5
-    const MAX_POINTS_PER_SKILL = 3
+    const MAX_STAT_POINTS_PER_STAT = 7
 
     const [confirmedStats, setConfirmedStats] = useState(false)
     const [availableSkills, setAvailableSkills] = useState([])
     const [selectedSkills, setSelectedSkills] = useState({})
-    const [skillPointsLeft, setSkillPointsLeft] = useState(5)
-    const [selectedLanguages, setSelectedLanguages] = useState([]);
+    const [selectedLanguages, setSelectedLanguages] = useState([])
 
         useEffect(() => {
             if (!selectedClass) return
@@ -120,7 +118,10 @@ function FormView() {
                                                         ...previousState,
                                                         [stat.name]: assignedPoints - 1
                                                     }))
-                                                    setStatPointsLeft(previousState => previousState + 1)
+                                                    if ((assignedPoints) > 5)
+                                                        setStatPointsLeft(previousState => previousState + 2)
+                                                    else
+                                                        setStatPointsLeft(previousState => previousState +1)
                                                 }
                                             }}
                                             disabled={assignedPoints === 0}
@@ -129,13 +130,14 @@ function FormView() {
                                         {/* + Button */}
                                         <button
                                             onClick={() => {
-                                                if (statPointsLeft > 0 && assignedPoints < MAX_STAT_POINTS_PER_STAT) {
-                                                    setSelectedStats(previousState => ({
-                                                        ...previousState,
-                                                        [stat.name]: assignedPoints + 1
-                                                    }))
-                                                    setStatPointsLeft(previousState => previousState - 1)
-                                                }
+                                                const cost = assignedPoints >= 5 ? 2 : 1;
+                                                if (statPointsLeft < cost || assignedPoints >= MAX_STAT_POINTS_PER_STAT) return;
+
+                                                setSelectedStats(previousState => ({
+                                                    ...previousState,
+                                                    [stat.name]: assignedPoints + 1
+                                                }));
+                                                setStatPointsLeft(previousState => previousState - cost);
                                             }}
                                             disabled={statPointsLeft === 0 || assignedPoints >= MAX_STAT_POINTS_PER_STAT}
                                         >+</button>
@@ -164,53 +166,43 @@ function FormView() {
                     {availableSkills.map(skill => {
                         const assignedSkillPoints = selectedSkills[skill.name] || 0
                         const relatedStat = skill.statDependency
-                        const baseMod = statModifiers[relatedStat] || 0
-                        const proficiencyBonus = 2
-                        const isProficient = assignedSkillPoints > 0
-                        const skillBonus = baseMod + (isProficient ? proficiencyBonus : 0)
+                        const baseMod = statModifiers[relatedStat] || -1
+                        const skillBonus = baseMod + assignedSkillPoints
+                        const formattedBonus = skillBonus >= -1 ? `${skillBonus}` : `${skillBonus}`
+
+                        // Count currently selected proficiencies
+                        const selectedCount = Object.values(selectedSkills).filter(value => value === 2).length
 
                         return (
                             <div key={skill.name} className="skill-card">
-                                <h4>{skill.name} | {assignedSkillPoints}</h4>
+                                <h4>{skill.name} | </h4>
                                 <p>{skill.description}</p>
-                                <p>Skill Bonus: {skillBonus >= 0 ? "+" : ""}{skillBonus}</p>
-                                <div className="skill-buttons">
-                                    {/* - Button */}
-                                    <button
-                                            onClick={() => {
-                                                if (assignedSkillPoints > 0) {
-                                                    setSelectedSkills(previousState => ({
-                                                        ...previousState,
-                                                        [skill.name]: assignedSkillPoints - 1
-                                                    }))
-                                                    setSkillPointsLeft(previousState => previousState + 1)
-                                                }
+                                <p>Skill Bonus: {formattedBonus}</p>
+                                <div className="skill-checkbox">
+                                    {/* check box */}
+                                    <label>
+                                        <input
+                                            type="checkbox"
+                                            checked={assignedSkillPoints >= 2}
+                                            disabled={
+                                                !assignedSkillPoints &&
+                                                selectedCount >= 3
+                                            }
+                                            onChange={(event) => {
+                                                const isSelected = event.target.checked;
+                                                setSelectedSkills(prev => ({
+                                                    ...prev,
+                                                    [skill.name]: isSelected ? 2 : 0
+                                                }));
                                             }}
-                                            disabled={assignedSkillPoints === 0}
-                                        >–</button>
-
-                                        {/* + Button */}
-                                        <button
-                                            onClick={() => {
-
-                                                if (skillPointsLeft > 0 && assignedSkillPoints < MAX_POINTS_PER_SKILL) {
-                                                    setSelectedSkills(previousState => ({
-                                                        ...previousState,
-                                                        [skill.name]: assignedSkillPoints + 1
-                                                    }))
-
-                                                    setSkillPointsLeft(previousState => previousState - 1)
-                                                }
-                                            }}
-                                            disabled={skillPointsLeft === 0 || assignedSkillPoints >= MAX_POINTS_PER_SKILL}
-                                        >+</button>
+                                        />
+                                        +2 (proficiencyBonus)
+                                    </label>
                                 </div>
                             </div>
                         )
                     })}
-
-                    <p>Points Remaining: {skillPointsLeft}</p>
-                    {skillPointsLeft === 0 && (
+                    
                         <Link
                             to="/form/customize"
                             state={{
@@ -228,7 +220,6 @@ function FormView() {
                                 Move to Customization
                             </button>
                         </Link>
-                    )}
                 </div>
             )}
         </section>

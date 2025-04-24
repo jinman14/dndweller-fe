@@ -131,17 +131,14 @@ function FormView() {
                                         {/* + Button */}
                                         <button
                                             onClick={() => {
-                                                if (statPointsLeft > 0 && assignedPoints < MAX_STAT_POINTS_PER_STAT) {
-                                                    setSelectedStats(previousState => ({
-                                                        ...previousState,
-                                                        [stat.name]: assignedPoints + 1,
-                                                    }))
-                                                    // console.log(assignedPoints)
-                                                    if ((assignedPoints) >= 5)
-                                                        setStatPointsLeft(previousState => previousState - 2)
-                                                    else
-                                                        setStatPointsLeft(previousState => previousState - 1)
-                                                }
+                                                const cost = assignedPoints >= 5 ? 2 : 1;
+                                                if (statPointsLeft < cost || assignedPoints >= MAX_STAT_POINTS_PER_STAT) return;
+
+                                                setSelectedStats(previousState => ({
+                                                    ...previousState,
+                                                    [stat.name]: assignedPoints + 1
+                                                }));
+                                                setStatPointsLeft(previousState => previousState - cost);
                                             }}
                                             disabled={statPointsLeft === 0 || assignedPoints >= MAX_STAT_POINTS_PER_STAT}
                                         >+</button>
@@ -175,7 +172,7 @@ function FormView() {
                         const formattedBonus = skillBonus >= -1 ? `${skillBonus}` : `${skillBonus}`
 
                         // Count currently selected proficiencies
-                        const selectedCount = Object.values(selectedSkills).filter(val => val === 2).length;
+                        const selectedCount = Object.values(selectedSkills).filter(value => value === 2).length
 
                         return (
                             <div key={skill.name} className="skill-card">

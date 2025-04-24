@@ -10,7 +10,16 @@ const SheetView = () => {
     <div className="sheet-grid">
       <section className="header">
         <h1>{character?.name || "Name not found"}</h1>
-        <p>{character?.race || "Race not found |"} | {character?.class || "Class not found |"} | Level {character?.level || 3} |</p>
+        <p>{character?.race || "Race not found |"} | {character?.class || "Class not found |"} | Level {character?.level || 3} </p>
+
+        {character?.token?.url && (
+          <img
+            src={character.token.url}
+            alt="Character Token"
+            className="token-preview"
+          />
+        )}
+
       </section>
 
       <section className="stats">
@@ -68,43 +77,38 @@ const SheetView = () => {
             </>
           )}
 
-          {character?.skills && Object.keys(character.skills).length > 0 && (
-            <>
-              <li><strong>Skills:</strong></li>
-              {Object.entries(character.skills).map(([skill, value], index) => {
-                const skillStatMap = {
-                  Athletics: 'Strength',
-                  Acrobatics: 'Dexterity',
-                  Stealth: 'Dexterity',
-                  Arcana: 'Intelligence',
-                  History: 'Intelligence',
-                  Investigation: 'Intelligence',
-                  Nature: 'Intelligence',
-                  Religion: 'Intelligence',
-                  AnimalHandling: 'Wisdom',
-                  Insight: 'Wisdom',
-                  Medicine: 'Wisdom',
-                  Perception: 'Wisdom',
-                  Survival: 'Wisdom',
-                  Deception: 'Charisma',
-                  Intimidation: 'Charisma',
-                  Performance: 'Charisma',
-                  Persuasion: 'Charisma'
-                };
-
-                const relatedStat = skillStatMap[skill]
+          <li><strong>Skills:</strong></li>
+          {Object.entries({
+            Athletics: 'Strength',
+            Acrobatics: 'Dexterity',
+            Stealth: 'Dexterity',
+            Arcana: 'Intelligence',
+            History: 'Intelligence',
+            Investigation: 'Intelligence',
+            Nature: 'Intelligence',
+            Religion: 'Intelligence',
+            AnimalHandling: 'Wisdom',
+            Insight: 'Wisdom',
+            Medicine: 'Wisdom',
+            Perception: 'Wisdom',
+            Survival: 'Wisdom',
+            Deception: 'Charisma',
+            Intimidation: 'Charisma',
+            Performance: 'Charisma',
+            Persuasion: 'Charisma'
+              }).map(([skill, relatedStat], index) => {
                 const statValue = character?.stats?.[relatedStat] || 8
                 const statModifier = Math.floor((statValue - 10) / 2)
-                const totalBonus = statModifier + (value || 0)
-                const cappedBonus = Math.max(totalBonus, 3)
-                const displayedBonus = cappedBonus >= 0 ? `+${cappedBonus}` : cappedBonus
+                const isProficient = character?.skills?.[skill] === 2
+                const totalBonus = statModifier + (isProficient ? 2 : 0)
+                const displayBonus = totalBonus >= 0 ? `+${totalBonus}` : totalBonus
 
-                return (
-                  <li key={`${skillStatMap}-${index}`}>{skill}: {displayedBonus}</li>
-                )
-              })}
-            </>
-          )}
+            return (
+              <li key={`skill-${index}`}>
+                {skill}: {displayBonus}
+              </li>
+            )
+          })}
         </ul>     
 
         {!character?.cantrips?.length && !character?.level1Spells?.length && !character?.level2Spells?.length && (

@@ -202,8 +202,25 @@ function FormCustomize() {
         .then((data) => {
             navigate("/sheet", {
                 state: {
-                    id: data["data"]["id"]
+                    character: {
+                        name: characterName,
+                        race: selectedRace,
+                        class: selectedClass,
+                        gender: selectedGender,
+                        token: selectedToken,
+                        stats: characterData.stats,
+                        skills: selectedSkills,
+                        cantrips: selectedCantrips,
+                        level1Spells: selectedLevel1Spells,
+                        level2Spells: selectedLevel2Spells,
+                        weapon: selectedWeapon,
+                        armor: selectedArmor,
+                        hp: characterData.hp,
+                        speed: characterData.speed,
+                        languages: selectedLanguages
+                    }
                 }
+                
             })
         })
     }

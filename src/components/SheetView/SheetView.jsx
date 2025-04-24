@@ -10,7 +10,16 @@ console.log(character)
     <div className="sheet-grid">
       <section className="header">
         <h1>{character?.name || "Name not found"}</h1>
-        <p>{character?.race || "Race not found |"} | {character?.class || "Class not found |"} | Level {character?.level || 3} |</p>
+        <p>{character?.race || "Race not found |"} | {character?.class || "Class not found |"} | Level {character?.level || 3} </p>
+
+        {character?.token?.url && (
+          <img
+            src={character.token.url}
+            alt="Character Token"
+            className="token-preview"
+          />
+        )}
+
       </section>
 
       <section className="stats">
@@ -34,7 +43,7 @@ console.log(character)
         <p><strong>AC:</strong> {character?.armor || "N/A"}</p>
         <p><strong>HP:</strong> {character?.Hp || character?.hp || "N/A"}</p>
         <p><strong>Speed:</strong> {character?.speed ? `${character.speed} ft` : "N/A"}</p>
-        <p><strong>Proficiency:</strong> +{character?.proficiency || +2}</p>
+        <p><strong>Proficiency Bonus:</strong> +{character?.proficiency || +2}</p>
         <p><strong>Languages:</strong> {Array.isArray(character?.languages) ? character.languages.join(', ') : "N/A"}</p>
       </section>
 
@@ -70,6 +79,7 @@ console.log(character)
               ))}
             </>
           )}
+
         </ul>     
 
         {!character?.cantrips?.length && !character?.level1Spells?.length && !character?.level2Spells?.length && (
@@ -102,8 +112,37 @@ console.log(character)
           {character?.skills && Object.keys(character.skills).length > 0 && (
             <>
               <li><strong>Skills:</strong></li>
-                {Object.entries(character.skills).map(([skill, value], index) => (
-              <li key={`skill-${index}`}>{skill}: +{value > 0 ? 2 : 0}</li>
+          {Object.entries({
+            Athletics: 'Strength',
+            Acrobatics: 'Dexterity',
+            Stealth: 'Dexterity',
+            Arcana: 'Intelligence',
+            History: 'Intelligence',
+            Investigation: 'Intelligence',
+            Nature: 'Intelligence',
+            Religion: 'Intelligence',
+            AnimalHandling: 'Wisdom',
+            Insight: 'Wisdom',
+            Medicine: 'Wisdom',
+            Perception: 'Wisdom',
+            Survival: 'Wisdom',
+            Deception: 'Charisma',
+            Intimidation: 'Charisma',
+            Performance: 'Charisma',
+            Persuasion: 'Charisma'
+              }).map(([skill, relatedStat], index) => {
+                const statValue = character?.stats?.[relatedStat] || 8
+                const statModifier = Math.floor((statValue - 10) / 2)
+                const isProficient = character?.skills?.[skill] === 2
+                const totalBonus = statModifier + (isProficient ? 2 : 0)
+                const displayBonus = totalBonus >= 0 ? `+${totalBonus}` : totalBonus
+
+            return (
+              <li key={`skill-${index}`}>
+                {skill}: {displayBonus}
+              </li>
+            )
+          })}
               ))}
             </>
           )}

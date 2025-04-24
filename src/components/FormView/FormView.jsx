@@ -23,7 +23,7 @@ function FormView() {
     const [confirmedStats, setConfirmedStats] = useState(false)
     const [availableSkills, setAvailableSkills] = useState([])
     const [selectedSkills, setSelectedSkills] = useState({})
-    const [selectedLanguages, setSelectedLanguages] = useState([]);
+    const [selectedLanguages, setSelectedLanguages] = useState([])
 
         useEffect(() => {
             if (!selectedClass) return
@@ -130,17 +130,14 @@ function FormView() {
                                         {/* + Button */}
                                         <button
                                             onClick={() => {
-                                                if (statPointsLeft > 0 && assignedPoints < MAX_STAT_POINTS_PER_STAT) {
-                                                    setSelectedStats(previousState => ({
-                                                        ...previousState,
-                                                        [stat.name]: assignedPoints + 1,
-                                                    }))
-                                                    // console.log(assignedPoints)
-                                                    if ((assignedPoints) >= 5)
-                                                        setStatPointsLeft(previousState => previousState - 2)
-                                                    else
-                                                        setStatPointsLeft(previousState => previousState - 1)
-                                                }
+                                                const cost = assignedPoints >= 5 ? 2 : 1;
+                                                if (statPointsLeft < cost || assignedPoints >= MAX_STAT_POINTS_PER_STAT) return;
+
+                                                setSelectedStats(previousState => ({
+                                                    ...previousState,
+                                                    [stat.name]: assignedPoints + 1
+                                                }));
+                                                setStatPointsLeft(previousState => previousState - cost);
                                             }}
                                             disabled={statPointsLeft === 0 || assignedPoints >= MAX_STAT_POINTS_PER_STAT}
                                         >+</button>
@@ -173,6 +170,9 @@ function FormView() {
                         const skillBonus = baseMod + assignedSkillPoints
                         const formattedBonus = skillBonus >= -1 ? `${skillBonus}` : `${skillBonus}`
 
+                        // Count currently selected proficiencies
+                        const selectedCount = Object.values(selectedSkills).filter(value => value === 2).length
+
                         return (
                             <div key={skill.name} className="skill-card">
                                 <h4>{skill.name} | </h4>
@@ -184,14 +184,17 @@ function FormView() {
                                         <input
                                             type="checkbox"
                                             checked={assignedSkillPoints >= 2}
+                                            disabled={
+                                                !assignedSkillPoints &&
+                                                selectedCount >= 3
+                                            }
                                             onChange={(event) => {
-                                                const isSelected = event.target.checked
-                                                setSelectedSkills(previousState => ({
-                                                    ...previousState,
-                                                    [skill.name] : isSelected ? 2 : 0
-                                                }))
+                                                const isSelected = event.target.checked;
+                                                setSelectedSkills(prev => ({
+                                                    ...prev,
+                                                    [skill.name]: isSelected ? 2 : 0
+                                                }));
                                             }}
-                                        
                                         />
                                         +2 (proficiencyBonus)
                                     </label>

@@ -74,6 +74,23 @@ function FormCustomize() {
         })
     }, [selectedClass])
 
+    const postCharacter = (characterData) => {
+        fetch("http://127.0.0.1:3000/api/v1/characters". {
+            method: "POST",
+            body: JSON.stringify({
+                name: characterData.name,
+                token: characterData.token.url,
+                level: 3,
+                race: characterData.race,
+                class: characterData.class,
+                gender: characterData.gender,
+                speed: characterData.speed,
+                languages: characterData.languages,
+                armor_class: characterData
+            })
+        })
+    }
+
     return (
         <section>
             {selectedRace && selectedClass && (
@@ -441,29 +458,27 @@ function FormCustomize() {
                         }, {})
 
                             const conScore = normalizedStats.Constitution || 8
-                            const conMod = Math.floor((conScore - 10) / 2)
+                            const conMod = Math.floor((conScore - 10) / 2)        
+                            
+                            const character = {
+                                name: characterName,
+                                race: selectedRace,
+                                class: selectedClass,
+                                gender: selectedGender,
+                                token: selectedToken,
+                                stats: normalizedStats,
+                                skills: selectedSkills,
+                                cantrips: selectedCantrips,
+                                level1Spells: selectedLevel1Spells,
+                                level2Spells: selectedLevel2Spells,
+                                weapon: selectedWeapon,
+                                armor: selectedArmor,
+                                hp: getHitPoints(selectedClass, conMod, 3),
+                                speed: getSpeedForRace(selectedRace),
+                                languages: selectedLanguages   
+                            }
 
-                            navigate("/sheet", {
-                                state: {
-                                    character: {
-                                        name: characterName,
-                                        race: selectedRace,
-                                        class: selectedClass,
-                                        gender: selectedGender,
-                                        token: selectedToken,
-                                        stats: normalizedStats,
-                                        skills: selectedSkills,
-                                        cantrips: selectedCantrips,
-                                        level1Spells: selectedLevel1Spells,
-                                        level2Spells: selectedLevel2Spells,
-                                        weapon: selectedWeapon,
-                                        armor: selectedArmor,
-                                        hp: getHitPoints(selectedClass, conMod, 3),
-                                        speed: getSpeedForRace(selectedRace),
-                                        languages: selectedLanguages
-                                    }
-                                }
-                            })
+                            postCharacter(character)
                         }}
                         >Submit Your Dweller!
                     </button>

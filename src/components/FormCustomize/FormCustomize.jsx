@@ -39,18 +39,19 @@ function FormCustomize() {
     useEffect(() => {
         if(!selectedClass) return
 
-        fetch('/spells_n_cantrips_data.json')
+        fetch(`https://www.dnd5eapi.co/api/2014/classes/${selectedClass.toLowerCase()}/spells`)
         .then((response) => response.json())
         .then((data) => {
-            const filterCantrips = data.cantrips.filter((cantrip) => {
-                return cantrip.recommendedFor.includes(selectedClass)
+            const filterCantrips = data["results"].filter((spell) => {
+                return spell["level"] === 0
             })
-            const filterLevel1Spells = data.spells_level_1.filter((level1) => {
-                return level1.recommendedFor.includes(selectedClass)
+            const filterLevel1Spells = data["results"].filter((spell) => {
+                return spell["level"] === 1
             })
-            const filterLevel2Spells = data.spells_level_2.filter((level2) => {
-                return level2.recommendedFor.includes(selectedClass)
+            const filterLevel2Spells = data["results"].filter((spell) => {
+                return spell["level"] === 2
             })
+
             setAvailableCantrips(filterCantrips)
             setAvailableLevel1Spells(filterLevel1Spells)
             setAvailableLevel2Spells(filterLevel2Spells)
@@ -60,15 +61,17 @@ function FormCustomize() {
     useEffect(() => {
         if (!selectedClass) return
 
-        fetch('/weapons_n_armor.json')
+        fetch("/weapons_n_armor.json")
         .then((response) => response.json())
         .then((data) => {
             const filteredWeapons = data.weapons.filter((weapon) => {
                 return weapon.recommendedFor.includes(selectedClass)
             })
+
             const filteredArmor = data.armor.filter((armor) => {
                 return armor.recommendedFor.includes(selectedClass)
             })
+
             setAvailableWeapons(filteredWeapons)
             setAvailableArmor(filteredArmor)
         })
@@ -256,9 +259,6 @@ function FormCustomize() {
                     return (
                         <div key={cantrip.name} className={`cantrip-card ${isSelected ? 'selected' : ''}`}>
                         <h4>{cantrip.name}</h4>
-                        <p><strong>Range:</strong> {cantrip.range}</p>
-                        <p><strong>Casting Time:</strong> {cantrip.castingTime}</p>
-                        <p>{cantrip.description}</p>
 
                         <button onClick={() => {
                             if (isSelected) {
@@ -307,9 +307,6 @@ function FormCustomize() {
                             return (
                                 <div key={spells_level_1.name} className={`spells_level_1-card ${isSelected ? 'selected' : ''}`}>
                                 <h4>{spells_level_1.name}</h4>
-                                <p><strong>Range:</strong> {spells_level_1.range}</p>
-                                <p><strong>Casting Time:</strong> {spells_level_1.castingTime}</p>
-                                <p>{spells_level_1.description}</p>
 
                                 <button onClick={() => {
                                     if (isSelected) {
@@ -343,9 +340,6 @@ function FormCustomize() {
                             return (
                                 <div key={spells_level_2.name} className={`spells_level_2-card ${isSelected ? 'selected' : ''}`}>
                                 <h4>{spells_level_2.name}</h4>
-                                <p><strong>Range:</strong> {spells_level_2.range}</p>
-                                <p><strong>Casting Time:</strong> {spells_level_2.castingTime}</p>
-                                <p>{spells_level_2.description}</p>
 
                                 <button onClick={() => {
                                     if (isSelected) {

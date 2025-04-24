@@ -19,7 +19,6 @@ function FormView() {
 
     const BASE_STAT_VALUE = 8
     const MAX_STAT_POINTS_PER_STAT = 7
-    // const MAX_POINTS_PER_SKILL = 3
 
     const [confirmedStats, setConfirmedStats] = useState(false)
     const [availableSkills, setAvailableSkills] = useState([])

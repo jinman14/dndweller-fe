@@ -143,7 +143,6 @@ console.log(character)
               </li>
             )
           })}
-              ))}
             </>
           )}
         </ul>     

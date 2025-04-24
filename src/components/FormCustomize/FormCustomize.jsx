@@ -197,8 +197,15 @@ function FormCustomize() {
                     }
                 })
             })
-        }).then((response) => response.json())
-        .then((json) => console.log(json))
+        })
+        .then((response) => response.json())
+        .then((data) => {
+            navigate("/sheet", {
+                state: {
+                    id: data["data"]["id"]
+                }
+            })
+        })
     }
 
     return (

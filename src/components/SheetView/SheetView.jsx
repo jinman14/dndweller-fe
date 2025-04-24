@@ -1,11 +1,22 @@
 import { useLocation } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 import './SheetView.css';
 
 
 const SheetView = () => {
   const { state } = useLocation()
-  const character = state?.character
-  console.log(character)
+  const id = state?.id
+
+  const [character, setCharacter] = useState({})
+
+  useEffect(() => {
+    fetch(`http://127.0.0.1:3000/api/v1/characters/${id}`)
+    .then((response) => response.json())
+    .then((data) => {
+      console.log(data)
+      setCharacter(data["data"])
+    })
+  }, [])
 
   return (
     <div className="sheet-grid">

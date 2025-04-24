@@ -52,10 +52,10 @@ function FormView() {
         useEffect(() => {
             if (!selectedRace) return
           
-            fetch('/languages_data.json')
+            fetch(`https://www.dnd5eapi.co/api/2014/races/${selectedRace.toLowerCase()}`)
               .then((response) => response.json())
               .then((data) => {
-                const raceLangs = data[selectedRace] || []
+                const raceLangs = data["languages"].map((language) => {return language["name"]})
                 setSelectedLanguages(raceLangs)
               })
         }, [selectedRace])

@@ -2,6 +2,73 @@ import { useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 
+const gearData = {
+    "weapons": [
+      {
+        "name": "Longsword",
+        "description": "A versatile blade favored by skilled warriors.",
+        "range": "Melee",
+        "recommendedFor": ["Fighter"]
+      },
+      {
+        "name": "Dagger",
+        "description": "A small, easily concealed blade ideal for quick strikes.",
+        "range": "Melee / Thrown (20/60 ft)",
+        "recommendedFor": ["Rogue"]
+      },
+      {
+        "name": "Mace",
+        "description": "A heavy-headed weapon used to crush through armor.",
+        "range": "Melee",
+        "recommendedFor": ["Cleric"]
+      },
+      {
+        "name": "Rapier",
+        "description": "A slender, flexible blade designed for precision.",
+        "range": "Melee",
+        "recommendedFor": ["Bard"]
+      },
+      {
+        "name": "Quarterstaff",
+        "description": "A simple, two-handed wooden staff often used with magic.",
+        "range": "Melee",
+        "recommendedFor": ["Wizard"]
+      }
+    ],
+    "armor": [
+      {
+        "name": "Chain Mail",
+        "description": "Interlocking metal rings offering great protection.",
+        "recommendedFor": ["Fighter"],
+        "ac": 16
+      },
+      {
+        "name": "Leather Armor",
+        "description": "Flexible armor made from toughened leather.",
+        "recommendedFor": ["Rogue"],
+        "ac": 11
+      },
+      {
+        "name": "Scale Mail",
+        "description": "Overlapping metal plates that provide solid defense.",
+        "recommendedFor": ["Cleric"],
+        "ac": 14
+      },
+      {
+        "name": "Studded Leather",
+        "description": "Leather armor reinforced with metal studs for added protection.",
+        "recommendedFor": ["Bard"],
+        "ac": 12
+      },
+      {
+        "name": "Mage Robes",
+        "description": "Cloth garments enchanted with light magical protection.",
+        "recommendedFor": ["Wizard"],
+        "ac": 10
+      }
+    ]
+  }
+
 
 function FormCustomize() {
     const navigate = useNavigate()
@@ -30,7 +97,7 @@ function FormCustomize() {
     const [confirmedWeapon, setConfirmedWeapon] = useState(false)
     const [selectedArmor, setSelectedArmor] = useState(null)
     const [confirmedArmor, setConfirmedArmor] = useState(false)
-    const [characterName, setCharacterName] = useState("")  
+    const [characterName, setCharacterName] = useState("")
 
     const hasCantrips = availableCantrips.length > 0
     const hasLevel1Spells = availableLevel1Spells.length > 0
@@ -76,6 +143,87 @@ function FormCustomize() {
             setAvailableArmor(filteredArmor)
         })
     }, [selectedClass])
+
+    function getArmorClass(armor) {
+        return gearData["armor"].filter((armor) => {
+            return armor.name === armor["ac"]
+        })
+    }
+
+    const postCharacter = (characterData) => {
+        fetch("http://127.0.0.1:3000/api/v1/characters", {
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify({
+                name: characterData.name,
+                token: characterData.token.url,
+                level: 3,
+                race: characterData.race,
+                class: characterData.class,
+                gender: characterData.gender,
+                speed: characterData.speed,
+                languages: characterData.languages,
+                armor_class: characterData.ac,
+                str: characterData.stats.Strength,
+                dex: characterData.stats.Dexterity,
+                con: characterData.stats.Constitution,
+                int: characterData.stats.Intelligence,
+                wis: characterData.stats.Wisdom,
+                cha: characterData.stats.Charisma,
+                hp: characterData.hp,
+                user_id: 1,
+                equipment: [
+                    {
+                        name: characterData.weapon,
+                        damage_dice: "N/A",
+                        damage_type: "N/A",
+                        range: 0
+                    },
+                    {
+                        name: characterData.armor,
+                        base: 0,
+                        dex_bonus: true
+                    }
+                ],
+                skills: characterData.cantrips
+                .concat(characterData.level1Spells, characterData.level2Spells)
+                .map((spell) => {
+                    return {
+                        name: spell,
+                        level: 0,
+                        damage_type: "N/A",
+                        range: "N/A",
+                        description: "N/A"
+                    }
+                })
+            })
+        })
+        .then((response) => response.json())
+        .then((data) => {
+            navigate("/sheet", {
+                state: {
+                    character: {
+                        name: characterName,
+                        race: selectedRace,
+                        class: selectedClass,
+                        gender: selectedGender,
+                        token: selectedToken,
+                        stats: characterData.stats,
+                        skills: selectedSkills,
+                        cantrips: selectedCantrips,
+                        level1Spells: selectedLevel1Spells,
+                        level2Spells: selectedLevel2Spells,
+                        weapon: selectedWeapon,
+                        armor: selectedArmor,
+                        hp: characterData.hp,
+                        speed: characterData.speed,
+                        languages: selectedLanguages
+                    }
+                }
+                
+            })
+        })
+    }
 
     return (
         <section>
@@ -436,29 +584,27 @@ function FormCustomize() {
                         }, {})
 
                             const conScore = normalizedStats.Constitution || 8
-                            const conMod = Math.floor((conScore - 10) / 2)
+                            const conMod = Math.floor((conScore - 10) / 2)        
+                            const character = {
+                                name: characterName,
+                                race: selectedRace,
+                                class: selectedClass,
+                                gender: selectedGender,
+                                token: selectedToken,
+                                stats: normalizedStats,
+                                skills: selectedSkills,
+                                cantrips: selectedCantrips,
+                                level1Spells: selectedLevel1Spells,
+                                level2Spells: selectedLevel2Spells,
+                                weapon: selectedWeapon,
+                                armor: selectedArmor,
+                                hp: getHitPoints(selectedClass, conMod, 3),
+                                speed: getSpeedForRace(selectedRace),
+                                languages: selectedLanguages,
+                                ac: getArmorClass(selectedArmor)
+                            }
 
-                            navigate("/sheet", {
-                                state: {
-                                    character: {
-                                        name: characterName,
-                                        race: selectedRace,
-                                        class: selectedClass,
-                                        gender: selectedGender,
-                                        token: selectedToken,
-                                        stats: normalizedStats,
-                                        skills: selectedSkills,
-                                        cantrips: selectedCantrips,
-                                        level1Spells: selectedLevel1Spells,
-                                        level2Spells: selectedLevel2Spells,
-                                        weapon: selectedWeapon,
-                                        armor: selectedArmor,
-                                        hp: getHitPoints(selectedClass, conMod, 3),
-                                        speed: getSpeedForRace(selectedRace),
-                                        languages: selectedLanguages
-                                    }
-                                }
-                            })
+                            postCharacter(character)
                         }}
                         >Submit Your Dweller!
                     </button>

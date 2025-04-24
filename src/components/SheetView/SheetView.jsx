@@ -5,7 +5,6 @@ import './SheetView.css';
 const SheetView = () => {
   const { state } = useLocation()
   const character = state?.character
-console.log(character)
   return (
     <div className="sheet-grid">
       <section className="header">
@@ -143,7 +142,6 @@ console.log(character)
               </li>
             )
           })}
-              ))}
             </>
           )}
         </ul>     

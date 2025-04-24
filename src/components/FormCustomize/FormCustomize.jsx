@@ -61,15 +61,17 @@ function FormCustomize() {
     useEffect(() => {
         if (!selectedClass) return
 
-        fetch('/weapons_n_armor.json')
+        fetch("/weapons_n_armor.json")
         .then((response) => response.json())
         .then((data) => {
             const filteredWeapons = data.weapons.filter((weapon) => {
                 return weapon.recommendedFor.includes(selectedClass)
             })
+
             const filteredArmor = data.armor.filter((armor) => {
                 return armor.recommendedFor.includes(selectedClass)
             })
+
             setAvailableWeapons(filteredWeapons)
             setAvailableArmor(filteredArmor)
         })
@@ -240,9 +242,6 @@ function FormCustomize() {
                     return (
                         <div key={cantrip.name} className={`cantrip-card ${isSelected ? 'selected' : ''}`}>
                         <h4>{cantrip.name}</h4>
-                        <p><strong>Range:</strong> {cantrip.range}</p>
-                        <p><strong>Casting Time:</strong> {cantrip.castingTime}</p>
-                        <p>{cantrip.description}</p>
 
                         <button onClick={() => {
                             if (isSelected) {
@@ -291,9 +290,6 @@ function FormCustomize() {
                             return (
                                 <div key={spells_level_1.name} className={`spells_level_1-card ${isSelected ? 'selected' : ''}`}>
                                 <h4>{spells_level_1.name}</h4>
-                                <p><strong>Range:</strong> {spells_level_1.range}</p>
-                                <p><strong>Casting Time:</strong> {spells_level_1.castingTime}</p>
-                                <p>{spells_level_1.description}</p>
 
                                 <button onClick={() => {
                                     if (isSelected) {
@@ -327,9 +323,6 @@ function FormCustomize() {
                             return (
                                 <div key={spells_level_2.name} className={`spells_level_2-card ${isSelected ? 'selected' : ''}`}>
                                 <h4>{spells_level_2.name}</h4>
-                                <p><strong>Range:</strong> {spells_level_2.range}</p>
-                                <p><strong>Casting Time:</strong> {spells_level_2.castingTime}</p>
-                                <p>{spells_level_2.description}</p>
 
                                 <button onClick={() => {
                                     if (isSelected) {

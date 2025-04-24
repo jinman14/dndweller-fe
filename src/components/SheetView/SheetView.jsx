@@ -5,7 +5,7 @@ import './SheetView.css';
 const SheetView = () => {
   const { state } = useLocation()
   const character = state?.character
-
+console.log(character)
   return (
     <div className="sheet-grid">
       <section className="header">
@@ -48,11 +48,12 @@ const SheetView = () => {
       </section>
 
       <section className="skills">
-        <h2>Spells & Skills</h2>
+        <h2>Spells</h2>
         <ul>
           {character?.cantrips?.length > 0 && (
             <>
-              <li><strong>Cantrips:</strong></li>
+              <p><strong>Cantrips:</strong></p>
+              <p><strong>As many as you want!</strong></p>
                 {character.cantrips.map((spell, index) => (
               <li key={`cantrip-${index}`}> {spell}</li>
               ))}
@@ -61,7 +62,8 @@ const SheetView = () => {
 
           {character?.level1Spells?.length > 0 && (
             <>
-              <li><strong>Level 1 Spells:</strong></li>
+              <p><strong>Level 1 Spells:</strong></p>
+              <p><strong>Level 1 Slots: [  ] [  ] [  ] [  ]</strong></p>
                 {character.level1Spells.map((spell, index) => (
               <li key={`level1-${index}`}> {spell}</li>
               ))}
@@ -70,14 +72,46 @@ const SheetView = () => {
 
           {character?.level2Spells?.length > 0 && (
             <>
-              <li><strong>Level 2 Spells:</strong></li>
+              <p><strong>Level 2 Spells:</strong></p>
+              <p><strong>Level 2 Slots: [  ] [  ]</strong></p>
                 {character.level2Spells.map((spell, index) => (
               <li key={`level2-${index}`}> {spell}</li>
               ))}
             </>
           )}
 
-          <li><strong>Skills:</strong></li>
+        </ul>     
+
+        {!character?.cantrips?.length && !character?.level1Spells?.length && !character?.level2Spells?.length && (
+          <li>No spells listed.</li>
+        )}
+      </section>
+
+      <section className="equipment">
+        <h2>Equipment</h2>
+        <ul>
+          {character?.weapon && (
+            <li>
+              <strong>Weapon:</strong> {Array.isArray(character.weapon) ? character.weapon.join(', ') : character.weapon}
+            </li>
+          )}
+          {character?.armor && (
+            <li>
+              <strong>Armor:</strong> {Array.isArray(character.armor) ? character.armor.join(', ') : character.armor}
+            </li>
+          )}
+          {!character?.weapon && !character?.armor && (
+            <li>No equipment listed.</li>
+          )}
+        </ul>
+      </section>
+
+      <section className="spells">
+      <h2>Skills</h2>
+        <ul>
+          {character?.skills && Object.keys(character.skills).length > 0 && (
+            <>
+              <li><strong>Skills:</strong></li>
           {Object.entries({
             Athletics: 'Strength',
             Acrobatics: 'Dexterity',
@@ -109,31 +143,10 @@ const SheetView = () => {
               </li>
             )
           })}
+              ))}
+            </>
+          )}
         </ul>     
-
-        {!character?.cantrips?.length && !character?.level1Spells?.length && !character?.level2Spells?.length && (
-          !character?.skills || Object.keys(character.skills).length === 0) && (
-          <li>No skills or spells listed.</li>
-        )}
-      </section>
-
-      <section className="equipment">
-        <h2>Equipment</h2>
-        <ul>
-          {character?.weapon && (
-            <li>
-              <strong>Weapon:</strong> {Array.isArray(character.weapon) ? character.weapon.join(', ') : character.weapon}
-            </li>
-          )}
-          {character?.armor && (
-            <li>
-              <strong>Armor:</strong> {Array.isArray(character.armor) ? character.armor.join(', ') : character.armor}
-            </li>
-          )}
-          {!character?.weapon && !character?.armor && (
-            <li>No equipment listed.</li>
-          )}
-        </ul>
       </section>
     </div>
   );

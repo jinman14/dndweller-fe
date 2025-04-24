@@ -175,7 +175,7 @@ function FormView() {
 
                         return (
                             <div key={skill.name} className="skill-card">
-                                <h4>{skill.name} | {assignedSkillPoints}</h4>
+                                <h4>{skill.name} | </h4>
                                 <p>{skill.description}</p>
                                 <p>Skill Bonus: {formattedBonus}</p>
                                 <div className="skill-checkbox">

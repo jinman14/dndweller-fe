@@ -35,27 +35,32 @@
       {
         "name": "Chain Mail",
         "description": "Interlocking metal rings offering great protection.",
-        "recommendedFor": ["Fighter"]
+        "recommendedFor": ["Fighter"],
+        "ac": 16
       },
       {
         "name": "Leather Armor",
         "description": "Flexible armor made from toughened leather.",
-        "recommendedFor": ["Rogue"]
+        "recommendedFor": ["Rogue"],
+        "ac": 11
       },
       {
         "name": "Scale Mail",
         "description": "Overlapping metal plates that provide solid defense.",
-        "recommendedFor": ["Cleric"]
+        "recommendedFor": ["Cleric"],
+        "ac": 14
       },
       {
         "name": "Studded Leather",
         "description": "Leather armor reinforced with metal studs for added protection.",
-        "recommendedFor": ["Bard"]
+        "recommendedFor": ["Bard"],
+        "ac": 12
       },
       {
         "name": "Mage Robes",
         "description": "Cloth garments enchanted with light magical protection.",
-        "recommendedFor": ["Wizard"]
+        "recommendedFor": ["Wizard"],
+        "ac": 10
       }
     ]
   }

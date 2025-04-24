@@ -2,6 +2,73 @@ import { useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 
+const gearData = {
+    "weapons": [
+      {
+        "name": "Longsword",
+        "description": "A versatile blade favored by skilled warriors.",
+        "range": "Melee",
+        "recommendedFor": ["Fighter"]
+      },
+      {
+        "name": "Dagger",
+        "description": "A small, easily concealed blade ideal for quick strikes.",
+        "range": "Melee / Thrown (20/60 ft)",
+        "recommendedFor": ["Rogue"]
+      },
+      {
+        "name": "Mace",
+        "description": "A heavy-headed weapon used to crush through armor.",
+        "range": "Melee",
+        "recommendedFor": ["Cleric"]
+      },
+      {
+        "name": "Rapier",
+        "description": "A slender, flexible blade designed for precision.",
+        "range": "Melee",
+        "recommendedFor": ["Bard"]
+      },
+      {
+        "name": "Quarterstaff",
+        "description": "A simple, two-handed wooden staff often used with magic.",
+        "range": "Melee",
+        "recommendedFor": ["Wizard"]
+      }
+    ],
+    "armor": [
+      {
+        "name": "Chain Mail",
+        "description": "Interlocking metal rings offering great protection.",
+        "recommendedFor": ["Fighter"],
+        "ac": 16
+      },
+      {
+        "name": "Leather Armor",
+        "description": "Flexible armor made from toughened leather.",
+        "recommendedFor": ["Rogue"],
+        "ac": 11
+      },
+      {
+        "name": "Scale Mail",
+        "description": "Overlapping metal plates that provide solid defense.",
+        "recommendedFor": ["Cleric"],
+        "ac": 14
+      },
+      {
+        "name": "Studded Leather",
+        "description": "Leather armor reinforced with metal studs for added protection.",
+        "recommendedFor": ["Bard"],
+        "ac": 12
+      },
+      {
+        "name": "Mage Robes",
+        "description": "Cloth garments enchanted with light magical protection.",
+        "recommendedFor": ["Wizard"],
+        "ac": 10
+      }
+    ]
+  }
+
 
 function FormCustomize() {
     const navigate = useNavigate()
@@ -30,7 +97,7 @@ function FormCustomize() {
     const [confirmedWeapon, setConfirmedWeapon] = useState(false)
     const [selectedArmor, setSelectedArmor] = useState(null)
     const [confirmedArmor, setConfirmedArmor] = useState(false)
-    const [characterName, setCharacterName] = useState("")  
+    const [characterName, setCharacterName] = useState("")
 
     const hasCantrips = availableCantrips.length > 0
     const hasLevel1Spells = availableLevel1Spells.length > 0
@@ -77,10 +144,17 @@ function FormCustomize() {
         })
     }, [selectedClass])
 
+    function getArmorClass(armor) {
+        return gearData["armor"].filter((armor) => {
+            return armor.name === armor["ac"]
+        })
+    }
+
     const postCharacter = (characterData) => {
         fetch("http://127.0.0.1:3000/api/v1/characters", {
             method: "POST",
-            body: {
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify({
                 name: characterData.name,
                 token: characterData.token.url,
                 level: 3,
@@ -89,13 +163,15 @@ function FormCustomize() {
                 gender: characterData.gender,
                 speed: characterData.speed,
                 languages: characterData.languages,
-                armor_class: 10,
+                armor_class: characterData.ac,
                 str: characterData.stats.Strength,
                 dex: characterData.stats.Dexterity,
                 con: characterData.stats.Constitution,
                 int: characterData.stats.Intelligence,
                 wis: characterData.stats.Wisdom,
                 cha: characterData.stats.Charisma,
+                hp: characterData.hp,
+                user_id: 1,
                 equipment: [
                     {
                         name: characterData.weapon,
@@ -120,7 +196,7 @@ function FormCustomize() {
                         description: "N/A"
                     }
                 })
-            }
+            })
         }).then((response) => response.json())
         .then((json) => console.log(json))
     }
@@ -499,9 +575,9 @@ function FormCustomize() {
                                 armor: selectedArmor,
                                 hp: getHitPoints(selectedClass, conMod, 3),
                                 speed: getSpeedForRace(selectedRace),
-                                languages: selectedLanguages   
+                                languages: selectedLanguages,
+                                ac: getArmorClass(selectedArmor)
                             }
-                            console.log(character)
 
                             postCharacter(character)
                         }}

@@ -34,7 +34,7 @@ const SheetView = () => {
         <p><strong>AC:</strong> {character?.armor || "N/A"}</p>
         <p><strong>HP:</strong> {character?.Hp || character?.hp || "N/A"}</p>
         <p><strong>Speed:</strong> {character?.speed ? `${character.speed} ft` : "N/A"}</p>
-        <p><strong>Proficiency:</strong> +{character?.proficiency || +2}</p>
+        <p><strong>Proficiency Bonus:</strong> +{character?.proficiency || +2}</p>
         <p><strong>Languages:</strong> {Array.isArray(character?.languages) ? character.languages.join(', ') : "N/A"}</p>
       </section>
 
@@ -71,9 +71,38 @@ const SheetView = () => {
           {character?.skills && Object.keys(character.skills).length > 0 && (
             <>
               <li><strong>Skills:</strong></li>
-                {Object.entries(character.skills).map(([skill, value], index) => (
-              <li key={`skill-${index}`}>{skill}: +{value > 0 ? 2 : 0}</li>
-              ))}
+              {Object.entries(character.skills).map(([skill, value], index) => {
+                const skillStatMap = {
+                  Athletics: 'Strength',
+                  Acrobatics: 'Dexterity',
+                  Stealth: 'Dexterity',
+                  Arcana: 'Intelligence',
+                  History: 'Intelligence',
+                  Investigation: 'Intelligence',
+                  Nature: 'Intelligence',
+                  Religion: 'Intelligence',
+                  AnimalHandling: 'Wisdom',
+                  Insight: 'Wisdom',
+                  Medicine: 'Wisdom',
+                  Perception: 'Wisdom',
+                  Survival: 'Wisdom',
+                  Deception: 'Charisma',
+                  Intimidation: 'Charisma',
+                  Performance: 'Charisma',
+                  Persuasion: 'Charisma'
+                };
+
+                const relatedStat = skillStatMap[skill]
+                const statValue = character?.stats?.[relatedStat] || 8
+                const statModifier = Math.floor((statValue - 10) / 2)
+                const totalBonus = statModifier + (value || 0)
+                const cappedBonus = Math.max(totalBonus, 3)
+                const displayedBonus = cappedBonus >= 0 ? `+${cappedBonus}` : cappedBonus
+
+                return (
+                  <li key={`${skillStatMap}-${index}`}>{skill}: {displayedBonus}</li>
+                )
+              })}
             </>
           )}
         </ul>     

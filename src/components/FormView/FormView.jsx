@@ -174,6 +174,9 @@ function FormView() {
                         const skillBonus = baseMod + assignedSkillPoints
                         const formattedBonus = skillBonus >= -1 ? `${skillBonus}` : `${skillBonus}`
 
+                        // Count currently selected proficiencies
+                        const selectedCount = Object.values(selectedSkills).filter(val => val === 2).length;
+
                         return (
                             <div key={skill.name} className="skill-card">
                                 <h4>{skill.name} | {assignedSkillPoints}</h4>
@@ -185,14 +188,17 @@ function FormView() {
                                         <input
                                             type="checkbox"
                                             checked={assignedSkillPoints >= 2}
+                                            disabled={
+                                                !assignedSkillPoints &&
+                                                selectedCount >= 3
+                                            }
                                             onChange={(event) => {
-                                                const isSelected = event.target.checked
-                                                setSelectedSkills(previousState => ({
-                                                    ...previousState,
-                                                    [skill.name] : isSelected ? 2 : 0
-                                                }))
+                                                const isSelected = event.target.checked;
+                                                setSelectedSkills(prev => ({
+                                                    ...prev,
+                                                    [skill.name]: isSelected ? 2 : 0
+                                                }));
                                             }}
-                                        
                                         />
                                         +2 (proficiencyBonus)
                                     </label>

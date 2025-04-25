@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
+import './FormCustomize.css'
 
 const deployedURL = "https://the-character-vault.onrender.com"
 const gearData = {

@@ -26,6 +26,11 @@
 }
 
 .token-card.selected {
-    border: rgb(241, 39, 39);
-    box-shadow: 0 0 10px rgb(234, 105, 6);
+    border: rgb(67, 67, 248);
+    background-color:rgb(179, 76, 17);
+    box-shadow: 0 0 10px rgb(41, 41, 41);
+}
+
+section h2 {
+    color: antiquewhite;
 }

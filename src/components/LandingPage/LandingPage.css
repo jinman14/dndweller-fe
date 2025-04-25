@@ -5,8 +5,11 @@
     justify-content: center;
     text-align: center;
     padding: 2rem;
-    color: antiquewhite;
     background-color: #444;
+}
+
+.landing-container h2 {
+    color: antiquewhite;
 }
 
 .about-text {
@@ -29,5 +32,5 @@
 }
 
 .raceclass-link:hover {
-    background-color: #7b5812;
+    background-color: #924103;
 }

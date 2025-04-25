@@ -1,7 +1,7 @@
 function GenderSelection({ onSelectGender }) {
     return (
         <section>
-            <h3>What gender is you hero?</h3>
+            <h3>What gender is your hero?</h3>
             <label>
                 <input type="radio" name="gender" value="Male" onChange={() => onSelectGender("Male")} />
                 Male

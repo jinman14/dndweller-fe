@@ -28,7 +28,7 @@
   <summary><h3><strong>Features</strong></h3></summary>
 
 
-- Select Race, Class, Gender, and Background
+- Select Race, Class, Gender, and Spells and Skills
 - Allocate stat points using standard D&D 27-point buy rules
 - Choose class-appropriate spells, armor, and weapons
 - Visual character preview using custom token images

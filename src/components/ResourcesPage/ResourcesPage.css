@@ -1,8 +1,10 @@
 .resources-container {
+    display: flex;
+    flex-direction: column;
     padding: 2rem;
-    max-width: 800px;
     margin: 0 auto;
     text-align: center;
+    background-color: #444;
 }
 
 .resources-list {
@@ -13,6 +15,8 @@
 
 .resources-list li {
     margin: 1rem 0;
+    padding: 0.5rem;
+    background-color: rgb(86, 86, 86);
 }
 
 .resources-list a {

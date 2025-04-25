@@ -72,10 +72,10 @@ Want to clone the realm and run it locally? Follow the steps below:
   | Area | Lead |
   |------|------|
   | Front-End - UI Design & Styling | Shadeau Christensen |
-  | Back-End - Routing & Navigation | Sebastian McKee |
+  | Back-End - Routing & Navigation & Setup | Sebastian McKee |
   | Full-Stack - Testing & Error Handling | Jacob Inman |
   | Back-End - API Integration & Setup | Rig Freyr |
-  | Full-Stack - Deployement and BE comminications | Montana Pfeifer |
+  | Full-Stack - Deployement and BE Communications | Montana Pfeifer |
 
   ---
 

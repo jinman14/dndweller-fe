@@ -1,82 +1,92 @@
 .sheet-grid {
-    display: grid;
-    grid-template-areas:
-      "header header"
-      "stats core-info"
-      "skills equipment"
-      "skills spells";
-    grid-template-columns: 1fr 1fr;
-    gap: 1.5rem;
-    max-width: 1000px;
-    margin: auto;
-    padding: 2rem;
-    background: #fafaf0;
-    color: #222;
-    font-family: 'Georgia', serif;
-    border: 2px solid #444;
-    border-radius: 12px;
-    box-shadow: 0 0 15px rgba(0,0,0,0.2);
-  }
-  
-  .header {
-    grid-area: header;
-    text-align: center;
-    border-bottom: 2px solid #faf9f9;
-    padding-bottom: 0.5rem;
-  }
-  
-  .stats {
-    grid-area: stats;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 0.5rem;
-    background: #fff;
-    padding: 1rem;
-    border: 1px solid #ccc;
-  }
-  
-  .stat {
-    text-align: center;
-    background: #f2f2f2;
-    border-radius: 6px;
-    padding: 0.5rem;
-  }
-  
-  .core-info {
-    grid-area: core-info;
-    padding: 1rem;
-    background: #fff;
-    border: 1px solid #ccc;
-  }
-  
-  .skills {
-    grid-area: skills;
-    background: #fff;
-    padding: 1rem;
-    border: 1px solid #ccc;
-  }
-  
-  .equipment {
-    grid-area: equipment;
-    background: #fff;
-    padding: 1rem;
-    border: 1px solid #ccc;
-  }
+  display: grid;
+  grid-template-areas:
+    "header header"
+    "stats core-info"
+    "skills equipment"
+    "skills spells";
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  max-width: 1000px;
+  margin: auto;
+  padding: 2rem;
+  background: #2c2c2c;
+  color: #fafafa;
+  font-family: 'Georgia', serif;
+  border: 2px solid #e26804;
+  border-radius: 12px;
+  box-shadow: 0 0 15px rgba(0,0,0,0.4);
+}
 
-  .spells {
-    grid-area: spells;
-    background: #fff;
-    padding: 1rem;
-    border: 1px solid #ccc;
-  }
-  
-  h1 {
-    font-size: 2rem;
-    margin-bottom: 0.3rem;
-  }
-  
-  h2 {
-    margin-bottom: 0.5rem;
-    color: #1a1a1a;
-  }
-  
+.header {
+  grid-area: header;
+  text-align: center;
+  border-bottom: 2px solid #e26804;
+  padding-bottom: 0.5rem;
+}
+
+.stats {
+  grid-area: stats;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.5rem;
+  background: #393939;
+  padding: 1rem;
+  border: 1px solid #e26804;
+  border-radius: 8px;
+}
+
+.stat {
+  text-align: center;
+  background: #444;
+  border-radius: 6px;
+  padding: 0.5rem;
+  transition: background-color 0.3s ease;
+}
+
+.stat:hover {
+  background-color: #555;
+}
+
+.core-info {
+  grid-area: core-info;
+  padding: 1rem;
+  background: #393939;
+  border: 1px solid #e26804;
+  border-radius: 8px;
+}
+
+.skills {
+  grid-area: skills;
+  background: #393939;
+  padding: 1rem;
+  border: 1px solid #e26804;
+  border-radius: 8px;
+}
+
+.equipment {
+  grid-area: equipment;
+  background: #393939;
+  padding: 1rem;
+  border: 1px solid #e26804;
+  border-radius: 8px;
+}
+
+.spells {
+  grid-area: spells;
+  background: #393939;
+  padding: 1rem;
+  border: 1px solid #e26804;
+  border-radius: 8px;
+}
+
+h1 {
+  font-size: 2rem;
+  margin-bottom: 0.3rem;
+  color: #e26804;
+}
+
+h2 {
+  margin-bottom: 0.5rem;
+  color: #fafafa;
+}

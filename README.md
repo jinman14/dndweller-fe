@@ -78,8 +78,7 @@ Want to clone the realm and run it locally? Follow the steps below:
   | Full-Stack - Deployement and BE Communications | Montana Pfeifer |
 
   ---
-
-
+  
   <table>
     <tr>
       <td align="center">
@@ -111,9 +110,7 @@ Want to clone the realm and run it locally? Follow the steps below:
       </td>
     </tr>
   </table>
-</div>
   
-<div align="center">
   <table>
     <tr>
       <td align="center">

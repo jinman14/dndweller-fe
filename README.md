@@ -11,7 +11,7 @@
 
 ---
 <details>
-  <summary><h3><strong>Teach Stack</strong></h3></summary>
+  <summary><h3><strong>Tech Stack</strong></h3></summary>
 
 
 - [React](https://reactjs.org/)

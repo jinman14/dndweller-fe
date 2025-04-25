@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 
+const deployedURL = "https://the-character-vault.onrender.com"
 const gearData = {
     "weapons": [
       {
@@ -151,7 +152,7 @@ function FormCustomize() {
     }
 
     const postCharacter = (characterData) => {
-        fetch("http://127.0.0.1:3000/api/v1/characters", {
+        fetch(`${deployedURL}/api/v1/characters`, {
             method: "POST",
             headers: {"Content-Type": "application/json"},
             body: JSON.stringify({

@@ -48,7 +48,7 @@
 Want to clone the realm and run it locally? Follow the steps below:
 
 1. Clone the repository
-`git clone [Repo can be found here](https://github.com/jinman14/dndweller-fe.git)`
+`git clone`
 
 2. Navigate into the project folder
 `cd dndweller-fe`

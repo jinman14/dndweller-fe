@@ -26,6 +26,6 @@
 }
 
 .token-card.selected {
-    border: rgb(67, 67, 248);
-    box-shadow: 0 0 10px rgb(41, 41, 41);
+    border: rgb(241, 39, 39);
+    box-shadow: 0 0 10px rgb(234, 105, 6);
 }

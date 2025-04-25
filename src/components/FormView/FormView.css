@@ -1,6 +1,6 @@
 button:disabled {
-    background-color: #4f4949;
-    color: #666666;
+    background-color: #444444;
+    color: #f0efef;
     cursor: not-allowed;
     opacity: 0.6;
 }

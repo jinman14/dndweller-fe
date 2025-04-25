@@ -4,8 +4,7 @@ body, html, #root {
   width: 100%;
   height: 100%;
   font-family: 'Segoe UI', Tahoma, 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  /* background-color: #f9f9f9; */
-  color: #d1d0d0;
+  color: #2f2d2d;
 }
 
 a {

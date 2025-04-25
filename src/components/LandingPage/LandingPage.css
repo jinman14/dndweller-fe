@@ -5,12 +5,14 @@
     justify-content: center;
     text-align: center;
     padding: 2rem;
-    background-color: #f9f9f9;
+    color: antiquewhite;
+    background-color: #444;
 }
 
 .about-text {
     margin: 1rem 0 2rem;
     font-size: 1.2rem;
+    color:antiquewhite;
 }
 
 .raceclass-link {
@@ -18,7 +20,7 @@
     max-width: 250px;
     margin: 0 auto;
     padding: 0.75rem 1.5rem;
-    background-color: #61dafb;
+    background-color: #e26804;
     text-decoration: none;
     text-align: center;
     font-weight: bold;
@@ -27,5 +29,5 @@
 }
 
 .raceclass-link:hover {
-    background-color: #21a1f1;
+    background-color: #7b5812;
 }
